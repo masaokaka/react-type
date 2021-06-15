@@ -6,6 +6,7 @@ import HistoryIcon from "@material-ui/icons/History";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import MeetingRoomOutlinedIcon from "@material-ui/icons/MeetingRoomOutlined";
 import SearchIcon from "@material-ui/icons/Search";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 interface Props {
   icon: string;
@@ -17,11 +18,12 @@ export const IconBtn = ({ icon, onClk }: Props) => {
     <IconButton onClick={onClk}>
       {icon === "Menu" && <MenuIcon />}
       {icon === "Admin" && <SupervisorAccountIcon />}
-      {icon === "ShoppingCart" && <ShoppingCartIcon />}
+      {icon === "Cart" && <ShoppingCartIcon />}
       {icon === "History" && <HistoryIcon />}
       {icon === "Login" && <MeetingRoomIcon />}
       {icon === "Logout" && <MeetingRoomOutlinedIcon />}
       {icon === "Search" && <SearchIcon />}
+      {icon === "Arrow" && <ArrowBackIcon />}
     </IconButton>
   );
 };

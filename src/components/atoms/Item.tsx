@@ -5,6 +5,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import { ItemType } from "../../app/store/item/itemsSlice";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -17,14 +19,24 @@ const useStyles = makeStyles({
   },
 });
 
-export const Item = () => {
+interface Props {
+  item: ItemType;
+}
+
+export const Item = ({ item }: Props) => {
   const classes = useStyles();
+  const history = useHistory();
+
   return (
     <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia className={classes.media} image="img/1.jpg" title="サンプルカレー"/>
+      <CardActionArea onClick={()=>history.push(`iteminfo/${item.id}`)}>
+        <CardMedia
+          className={classes.media}
+          image={item.img}
+          title={item.name}
+        />
         <CardContent>
-          <Typography>サンプルカレー</Typography>
+          <Typography>{item.name}</Typography>
         </CardContent>
       </CardActionArea>
       <CardContent style={{ paddingTop: "0" }}>
@@ -32,11 +44,11 @@ export const Item = () => {
           <Grid container>
             <Grid item xs={6}>
               <strong>M:</strong>
-              2000円(税抜)
+              {item.mprice}円(税抜)
             </Grid>
             <Grid item xs={6}>
               <strong>L:</strong>
-              2000円(税抜)
+              {item.lprice}円(税抜)
             </Grid>
           </Grid>
         </Typography>

@@ -1,27 +1,40 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { auth, sessionPersistance, db } from "../../lib/firebase/index";
 import { Link } from "react-router-dom";
 import { TextField, Button, Container, Box } from "@material-ui/core";
+import { login } from "../../app/store/user/userOperation";
 
 export const Login = () => {
-  const doLogin = () => {
-    
-  }
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <Container maxWidth="sm">
       <Box mt={3} textAlign="center">
         <h2>ログイン</h2>
         <Box>
-          <TextField label="メールアドレス" type="email" />
+          <TextField
+            label="メールアドレス"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </Box>
         <Box>
-          <TextField label="パスワード" type="password" />
+          <TextField
+            label="パスワード"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </Box>
       </Box>
       <Box mt={5} textAlign="center">
-        <Button variant="contained" color="primary" onClick={doLogin}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => login(email, password)}
+        >
           ログイン
         </Button>
       </Box>

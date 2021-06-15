@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-export const sidenavSlice = createSlice({
+export const SidenavSlice = createSlice({
   name: "sidenav",
   initialState: false,
   reducers: {
@@ -11,7 +11,7 @@ export const sidenavSlice = createSlice({
   },
 });
 
-export const { toggle } = sidenavSlice.actions;
+export const { toggle } = SidenavSlice.actions;
 export const selectSidenav = (state: RootState) => state.sidenav;
 
-export default sidenavSlice.reducer;
+export default SidenavSlice.reducer;

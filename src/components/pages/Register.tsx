@@ -1,30 +1,33 @@
+import { useState, useEffect } from "react";
+import { useAppSelector } from "../../app/hooks";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { auth, db } from "../../lib/firebase/index";
-import { useState } from "react";
-
-import {
-  TextField,
-  Button,
-  Container,
-  makeStyles,
-  Box,
-} from "@material-ui/core";
+import { selectUser } from "../../app/store/user/userSlice";
+import { register } from "../../app/store/user/userOperation";
+import { TextField, Button, Container, Box } from "@material-ui/core";
 
 export const Register = () => {
+  const user = useAppSelector(selectUser);
   const history = useHistory();
-  const handleLink = (path: string) => history.push(path);
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const doRegister = () => {
-    auth.createUserWithEmailAndPassword(email, password).then(() => {
-      let user = auth.currentUser;
-      // if (user != null) {
-      //   uid = user.uid;
-      //   valueList.userId = user.uid;
-      // }
-    });
+    dispatch(register(email, password));
+    history.push("/");
   };
+
+  useEffect(() => {
+    if (user.uid) {
+      history.push("/");
+    }
+    return () => {
+      setEmail("");
+      setPassword("");
+    };
+  }, []);
+
   return (
     <Container maxWidth="sm">
       <Box mt={3} textAlign="center">

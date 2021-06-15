@@ -1,11 +1,15 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import sidenavSlice from "./store/sidenavSlice";
-import userSlice from "./store/userSlice";
+import ItemsSlice from "./store/item/itemsSlice";
+import SidenavSlice from "./store/sidenavSlice";
+import ToppingsSlice from "./store/topping/toppingsSlice";
+import UserSlice from "./store/user/userSlice";
 
 export const store = configureStore({
   reducer: {
-    sidenav: sidenavSlice,
-    user: userSlice,
+    sidenav: SidenavSlice,
+    user: UserSlice,
+    items: ItemsSlice,
+    toppings: ToppingsSlice,
   },
 });
 
