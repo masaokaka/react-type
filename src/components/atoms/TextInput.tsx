@@ -1,12 +1,16 @@
 import TextField from "@material-ui/core/TextField";
+interface Props {
+  type: string;
+  label: string;
+}
 
-export const TextInput = () => {
+export const TextInput = ({type,label}:Props) => {
   return (
     <TextField
-      type="text"
+      type={type}
       variant="filled"
       size="small"
-      label="検索"
+      label={label}
     ></TextField>
   );
 };

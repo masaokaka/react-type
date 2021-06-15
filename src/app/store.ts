@@ -1,9 +1,11 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import sidenavSlice from './store/sidenavSlice';
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import sidenavSlice from "./store/sidenavSlice";
+import userSlice from "./store/userSlice";
 
 export const store = configureStore({
   reducer: {
-    sidenav:sidenavSlice
+    sidenav: sidenavSlice,
+    user: userSlice,
   },
 });
 

@@ -5,7 +5,7 @@ import { TextInput } from "../atoms/TextInput";
 export const SearchForm = () => {
   return (
     <Grid>
-      <TextInput />
+      <TextInput type="text" label="検索"/>
       <IconBtn icon="Search" />
     </Grid>
   );
