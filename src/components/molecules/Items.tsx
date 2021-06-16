@@ -9,8 +9,8 @@ interface Props {
 export const Items = ({ items }: Props) => {
   return (
     <Box display="flex" flexWrap="wrap">
-      {items.map((item,index) => (
-        <Item item={item} key={ index}/>
+      {items.map((item, index) => (
+        <Item item={item} key={index} />
       ))}
     </Box>
   );

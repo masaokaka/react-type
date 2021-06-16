@@ -7,7 +7,6 @@ interface Top {
   id: number;
   size: number;
 }
-
 interface Props {
   topping: ToppingType;
   addedToppings: Top[];
@@ -31,17 +30,25 @@ export const SelectForm = ({
 }: Props) => {
   const classes = useStyles();
   const [size, setSize] = useState(9);
+
   useEffect(() => {
-    //最初は空なので、空だったら他してやる処理を書く。
-    let newAddedToppings = addedToppings.map((top) => {
-      if (top.id === topping.id) {
-        return { id: topping.id, size: size };
+    //最初は空なので、空だったらたしてやる処理を書く。
+    if (addedToppings.length === 0) {
+      setAddedToppings([{ id: topping.id, size: size }]);
+    } else {
+      let index: number | null = null;
+      addedToppings.forEach((top) => {
+        if (top.id === topping.id) {
+          index = addedToppings.indexOf(top);
+        }
+      });
+      if (index !== null) {
+        addedToppings[index].size = size;
+        setAddedToppings([...addedToppings]);
       } else {
-        return top;
+        setAddedToppings([...addedToppings, { id: topping.id, size: size }]);
       }
-    });
-    console.log(newAddedToppings);
-    // setAddedToppings(newAddedToppings);
+    }
   }, [size]);
   return (
     <FormControl key={topping.id} className={classes.formControl}>
@@ -52,7 +59,7 @@ export const SelectForm = ({
         value={size}
         onChange={(e: any) => setSize(e.target.value)}
       >
-        <MenuItem value={9}>量を選択してください</MenuItem>
+        <MenuItem value={9}>選択</MenuItem>
         <MenuItem value={0}>普通</MenuItem>
         <MenuItem value={1}>多め</MenuItem>
       </Select>

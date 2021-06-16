@@ -1,4 +1,4 @@
-import { Container } from "@material-ui/core";
+import { Container, FormLabel } from "@material-ui/core";
 import { selectToppings } from "../../app/store/topping/toppingsSlice";
 import { useAppSelector } from "../../app/hooks";
 import { SelectForm } from "../atoms/SelectForm";
@@ -20,6 +20,7 @@ export const SelectToppingForm = ({
   const toppings = useAppSelector(selectToppings);
   return (
     <Container>
+      <FormLabel component="legend">トッピング</FormLabel>
       {toppings.map((topping) => (
         <SelectForm
           topping={topping}
