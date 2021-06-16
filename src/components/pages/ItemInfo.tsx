@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { ItemType, selectItems } from "../../app/store/item/itemsSlice";
 import { useAppSelector } from "../../app/hooks";
 import { Container } from "@material-ui/core";
@@ -9,6 +10,7 @@ import { SelectToppingForm } from "../molecules/SelectToppingForm";
 import { CalcTotal } from "../atoms/CalcTotal";
 import { Btn } from "../atoms/Btn";
 import { SelectNumForm } from "../atoms/SelectNumForm";
+import { createRandomId } from "../../utils/functions";
 import {
   TAX,
   SIZE_M_STATUS,
@@ -16,6 +18,14 @@ import {
   SIZE_M_PRICE,
   SIZE_L_PRICE,
 } from "../../state/const";
+import { selectUser } from "../../app/store/user/userSlice";
+import {
+  setCart,
+  selectCart,
+  CartType,
+  CartItemType,
+} from "../../app/store/cart/cartSlice";
+import { updateCart, createCart } from "../../app/store/cart/cartOperation";
 interface Top {
   id: number;
   size: number;
@@ -23,7 +33,10 @@ interface Top {
 const initialTops: Top[] = [];
 
 export const ItemInfo = () => {
+  const dispatch = useDispatch();
+  const user = useAppSelector(selectUser);
   const items = useAppSelector(selectItems);
+  const cart = useAppSelector(selectCart);
   const [addedToppings, setAddedToppings] = useState(initialTops);
   const [itemSize, setItemSize] = useState(SIZE_M_STATUS);
   const [itemNum, setItemNum] = useState(1);
@@ -62,10 +75,37 @@ export const ItemInfo = () => {
   }, [addedToppings, itemSize, itemNum]);
 
   const doAddCart = () => {
-    //オブジェクト
-    // { itemId: 1, itemSize: 1,itemNum:3, topping: [{ id: 1, size: 1 }, { id: 2, size: 0 }]}
+    let selectedToppings: Top[] = addedToppings.filter((top) => top.size !== 9);
+    let cartItem: CartItemType = {
+      id: createRandomId(),
+      itemId: parseInt(itemid),
+      itemNum: itemNum,
+      itemSize: itemSize,
+      toppings: selectedToppings,
+    };
+    if (user.uid) {
+      if (Object.keys(cart).length !== 0) {
+        dispatch(updateCart(cartItem, user.uid));
+      } else {
+        dispatch(createCart(cartItem, user.uid));
+      }
+    } else {
+      if (Object.keys(cart).length === 0) {
+        let newCart = {
+          itemInfo: [cartItem],
+          status: 0,
+        };
+        dispatch(setCart(newCart));
+      } else {
+        let newCart: CartType = JSON.parse(JSON.stringify(cart));
+        if (newCart.itemInfo !== undefined) {
+          newCart.itemInfo.push(cartItem);
+          dispatch(setCart(newCart));
+        }
+      }
+    }
   };
-
+  console.log(cart);
   return (
     <Container>
       <h2>商品詳細</h2>

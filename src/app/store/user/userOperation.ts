@@ -3,7 +3,7 @@ import { setUser } from "./userSlice";
 import { AppThunk } from "../../store";
 
 // //ログイン
-export const login = async (email: string, password: string) => {
+export const login = (email: string, password: string) => {
   auth.setPersistence(sessionPersistance).then(() => {
     auth
       .signInWithEmailAndPassword(email, password)
@@ -13,7 +13,7 @@ export const login = async (email: string, password: string) => {
 };
 
 //ログアウト
-export const logout = async () => {
+export const logout = () => {
   auth
     .signOut()
     .then(() => {})

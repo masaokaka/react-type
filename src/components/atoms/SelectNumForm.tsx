@@ -26,8 +26,10 @@ export const SelectNumForm = ({ itemNum, setItemNum }: Props) => {
         value={itemNum}
         onChange={(e: any) => setItemNum(e.target.value)}
       >
-        {nums.map((num) => (
-          <MenuItem value={num}>{num}</MenuItem>
+        {nums.map((num, index) => (
+          <MenuItem value={num} key={index}>
+            {num}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>
