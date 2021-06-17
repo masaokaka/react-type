@@ -17,23 +17,25 @@ export const RadioInput = ({ item, itemSize, setItemSize }: Props) => {
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">サイズ</FormLabel>
-      <RadioGroup
-        aria-label="itemSize"
-        name="itemSize"
-        value={itemSize}
-        onChange={(e) => setItemSize(parseInt(e.target.value))}
-      >
-        <FormControlLabel
-          value={0}
-          control={<Radio />}
-          label={`Mサイズ：${item?.mprice}円(税抜)`}
-        />
-        <FormControlLabel
-          value={1}
-          control={<Radio />}
-          label={`Lサイズ：${item?.lprice}円(税抜)`}
-        />
-      </RadioGroup>
+      {item !== undefined && (
+        <RadioGroup
+          aria-label="itemSize"
+          name="itemSize"
+          value={itemSize}
+          onChange={(e) => setItemSize(parseInt(e.target.value))}
+        >
+          <FormControlLabel
+            value={0}
+            control={<Radio />}
+            label={`Mサイズ：${item.mprice}円(税抜)`}
+          />
+          <FormControlLabel
+            value={1}
+            control={<Radio />}
+            label={`Lサイズ：${item.lprice}円(税抜)`}
+          />
+        </RadioGroup>
+      )}
     </FormControl>
   );
 };

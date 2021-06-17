@@ -22,6 +22,8 @@ import { selectUser, setUser, unsetUser } from "./app/store/user/userSlice";
 import { useAppSelector } from "./app/hooks";
 import { fetchItems } from "./app/store/item/itemsOperation";
 import { fetchToppings } from "./app/store/topping/toppingsOperation";
+import { unsetCart } from "./app/store/cart/cartSlice";
+import { fetchCart } from "./app/store/cart/cartOperation";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,8 +36,10 @@ function App() {
         let uid = user.uid;
         let name = user.displayName;
         dispatch(setUser({ uid, name }));
+        dispatch(fetchCart(uid))
       } else {
         dispatch(unsetUser());
+        dispatch(unsetCart());
       }
     });
     dispatch(fetchItems());

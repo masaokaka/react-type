@@ -85,7 +85,7 @@ export const ItemInfo = () => {
     };
     if (user.uid) {
       if (Object.keys(cart).length !== 0) {
-        dispatch(updateCart(cartItem, user.uid));
+        dispatch(updateCart(cartItem, user.uid, cart));
       } else {
         dispatch(createCart(cartItem, user.uid));
       }
@@ -98,14 +98,11 @@ export const ItemInfo = () => {
         dispatch(setCart(newCart));
       } else {
         let newCart: CartType = JSON.parse(JSON.stringify(cart));
-        if (newCart.itemInfo !== undefined) {
-          newCart.itemInfo.push(cartItem);
-          dispatch(setCart(newCart));
-        }
+        newCart.itemInfo!.push(cartItem);
+        dispatch(setCart(newCart));
       }
     }
   };
-  console.log(cart);
   return (
     <Container>
       <h2>商品詳細</h2>

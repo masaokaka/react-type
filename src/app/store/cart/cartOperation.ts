@@ -1,22 +1,17 @@
-import { db } from "../../../lib/firebase";
-import { setCart, unsetCart, CartItemType, CartType } from "./cartSlice";
+import { db, fieldValue } from "../../../lib/firebase";
+import { setCart, CartItemType, CartType } from "./cartSlice";
 import { AppThunk } from "../../store";
-import { ITEM_TABLE_ID, ITEM_TABLE_PATH } from "../../../state/admin";
 
 //カートの更新
 export const updateCart =
-  (cartItem: CartItemType, uid: string): AppThunk =>
+  (cartItem: CartItemType, uid: string, cart: CartType): AppThunk =>
   (dispatch) => {
-    db.collection(ITEM_TABLE_PATH)
-      .doc(ITEM_TABLE_ID)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          let data = doc.data();
-          if (data !== undefined) {
-            dispatch(setCart(data.itemData));
-          }
-        }
+    db.collection(`users/${uid}/order`)
+      .doc(cart.id)
+      .update({ itemInfo: fieldValue.arrayUnion(cartItem) })
+      .then(() => {
+        cart.itemInfo?.push(cartItem);
+        dispatch(setCart(cart));
       })
       .catch((error) => {
         alert(error);
@@ -27,16 +22,16 @@ export const updateCart =
 export const createCart =
   (cartItem: CartItemType, uid: string): AppThunk =>
   (dispatch) => {
-    let order: CartType = {
+    let cart: CartType = {
       userId: uid,
       itemInfo: [cartItem],
       status: 0,
     };
     db.collection(`users/${uid}/order`)
-      .add(order)
+      .add(cart)
       .then((doc) => {
-        order.id = doc.id;
-        dispatch(setCart(order));
+        cart.id = doc.id;
+        dispatch(setCart(cart));
       })
       .catch((error) => {
         alert(error);
@@ -44,4 +39,21 @@ export const createCart =
   };
 
 //カートの取得
-// export const fetchCart = (): Appthunk => (dispatch) => {};
+export const fetchCart =
+  (uid: string): AppThunk =>
+    (dispatch) => {
+    db.collection(`users/${uid}/order`)
+      .get()
+      .then((snapShot) => {
+        snapShot.forEach((doc) => {
+          if (doc.data().status === 0) {
+            let cart: CartType = doc.data();
+            cart.id = doc.id;
+            dispatch(setCart(cart));
+          }
+        });
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };

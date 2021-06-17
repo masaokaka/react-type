@@ -11,9 +11,7 @@ export const fetchItems = (): AppThunk => (dispatch) => {
     .then((doc) => {
       if (doc.exists) {
         let data = doc.data();
-        if (data !== undefined) {
-          dispatch(setItems(data.itemData));
-        }
+        dispatch(setItems(data!.itemData));
       }
     })
     .catch((error) => {

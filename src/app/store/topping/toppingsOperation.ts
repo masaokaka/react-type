@@ -11,9 +11,7 @@ export const fetchToppings = (): AppThunk => (dispatch) => {
     .then((doc) => {
       if (doc.exists) {
         let data = doc.data();
-        if (data !== undefined) {
-          dispatch(setToppings(data.toppingData));
-        }
+          dispatch(setToppings(data!.toppingData));
       }
     })
     .catch((error) => {
