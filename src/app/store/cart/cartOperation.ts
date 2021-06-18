@@ -5,13 +5,14 @@ import { AppThunk } from "../../store";
 //カートの更新
 export const updateCart =
   (cartItem: CartItemType, uid: string, cart: CartType): AppThunk =>
-  (dispatch) => {
+  (dispatch): void => {
     db.collection(`users/${uid}/order`)
       .doc(cart.id)
       .update({ itemInfo: fieldValue.arrayUnion(cartItem) })
       .then(() => {
-        cart.itemInfo?.push(cartItem);
-        dispatch(setCart(cart));
+        let newCart: CartType = { ...cart };
+        newCart.itemInfo = [...cart.itemInfo!, cartItem];
+        dispatch(setCart(newCart));
       })
       .catch((error) => {
         alert(error);
@@ -21,7 +22,7 @@ export const updateCart =
 //カートの新規作成
 export const createCart =
   (cartItem: CartItemType, uid: string): AppThunk =>
-  (dispatch) => {
+  (dispatch): void => {
     let cart: CartType = {
       userId: uid,
       itemInfo: [cartItem],
@@ -41,7 +42,7 @@ export const createCart =
 //カートの取得
 export const fetchCart =
   (uid: string): AppThunk =>
-    (dispatch) => {
+  (dispatch): void => {
     db.collection(`users/${uid}/order`)
       .get()
       .then((snapShot) => {
@@ -52,6 +53,23 @@ export const fetchCart =
             dispatch(setCart(cart));
           }
         });
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+
+//カートの商品削除
+export const deleteCartItem =
+  (delItem: CartItemType, uid: string, cart: CartType): AppThunk =>
+  (dispatch): void => {
+    db.collection(`users/${uid}/order`)
+      .doc(cart.id)
+      .update({ itemInfo: fieldValue.arrayRemove(delItem) })
+      .then(() => {
+        let newCart: CartType = { ...cart };
+        newCart.itemInfo = cart.itemInfo!.filter((it) => it.id !== delItem.id);
+        dispatch(setCart(newCart));
       })
       .catch((error) => {
         alert(error);

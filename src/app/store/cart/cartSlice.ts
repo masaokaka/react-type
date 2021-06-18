@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
-
-interface Top {
+export interface CartTopType {
   id: number;
   size: number;
 }
@@ -11,7 +10,7 @@ export interface CartItemType {
   itemId: number;
   itemNum: number;
   itemSize: number;
-  toppings: Top[];
+  toppings: CartTopType[];
 }
 
 export interface CartType {
@@ -37,6 +36,6 @@ export const cartSlice = createSlice({
 });
 
 export const { setCart, unsetCart } = cartSlice.actions;
-export const selectCart = (state: RootState) => state.cart;
+export const selectCart = (state: RootState):CartType => state.cart;
 
 export default cartSlice.reducer;

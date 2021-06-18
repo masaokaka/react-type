@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { ItemType } from "../../app/store/item/itemsSlice";
 import { useHistory } from "react-router-dom";
+import { Price } from "./Price";
 
 const useStyles = makeStyles({
   root: {
@@ -44,11 +45,11 @@ export const Item = ({ item }: Props) => {
           <Grid container>
             <Grid item xs={6}>
               <strong>M:</strong>
-              {item.mprice}円(税抜)
+              <Price price={item.mprice} bigsize={false} tax={false}></Price>
             </Grid>
             <Grid item xs={6}>
               <strong>L:</strong>
-              {item.lprice}円(税抜)
+              <Price price={item.lprice} bigsize={false} tax={false}></Price>
             </Grid>
           </Grid>
         </Typography>

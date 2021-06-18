@@ -2,15 +2,12 @@ import { Select, InputLabel, FormControl, MenuItem } from "@material-ui/core";
 import { ToppingType } from "../../app/store/topping/toppingsSlice";
 import { makeStyles } from "@material-ui/core";
 import { useState, useEffect } from "react";
+import { CartTopType } from "../../app/store/cart/cartSlice";
 
-interface Top {
-  id: number;
-  size: number;
-}
 interface Props {
   topping: ToppingType;
-  addedToppings: Top[];
-  setAddedToppings: React.Dispatch<React.SetStateAction<Top[]>>;
+  addedToppings: CartTopType[];
+  setAddedToppings: React.Dispatch<React.SetStateAction<CartTopType[]>>;
 }
 
 const useStyles = makeStyles((theme) => ({

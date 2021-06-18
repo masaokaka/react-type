@@ -7,18 +7,13 @@ import { Container } from "@material-ui/core";
 import { ItemDetail } from "../molecules/ItemDetail";
 import { RadioInput } from "../atoms/RadioInput";
 import { SelectToppingForm } from "../molecules/SelectToppingForm";
-import { CalcTotal } from "../atoms/CalcTotal";
+import { Price } from "../atoms/Price";
 import { Btn } from "../atoms/Btn";
 import { SelectNumForm } from "../atoms/SelectNumForm";
 import { createRandomId } from "../../utils/functions";
-import {
-  TAX,
-  SIZE_M_STATUS,
-  SIZE_L_STATUS,
-  SIZE_M_PRICE,
-  SIZE_L_PRICE,
-} from "../../state/const";
+import { calcTotal } from "../../utils/functions";
 import { selectUser } from "../../app/store/user/userSlice";
+import { SIZE_M_STATUS } from "../../state/const";
 import {
   setCart,
   selectCart,
@@ -26,11 +21,9 @@ import {
   CartItemType,
 } from "../../app/store/cart/cartSlice";
 import { updateCart, createCart } from "../../app/store/cart/cartOperation";
-interface Top {
-  id: number;
-  size: number;
-}
-const initialTops: Top[] = [];
+import { CartTopType } from "../../app/store/cart/cartSlice";
+
+const initialTops: CartTopType[] = [];
 
 export const ItemInfo = () => {
   const dispatch = useDispatch();
@@ -50,32 +43,19 @@ export const ItemInfo = () => {
         setItem(item);
       }
     });
-  }, [itemid]);
+  }, [items, itemid]);
 
   useEffect(() => {
     if (item !== undefined) {
-      let total: number = 0;
-      if (itemSize === SIZE_M_STATUS) {
-        total += item.mprice * itemNum;
-      } else if (itemSize === SIZE_L_STATUS) {
-        total += item.lprice * itemNum;
-      }
-      let selectedToppings: Top[] = addedToppings.filter(
-        (top) => top.size !== 9
-      );
-      selectedToppings.forEach((top) => {
-        if (top.size === SIZE_M_STATUS) {
-          total += SIZE_M_PRICE * itemNum;
-        } else if (top.size === SIZE_L_STATUS) {
-          total += SIZE_L_PRICE * itemNum;
-        }
-      });
-      setTotalPrice(total + total * TAX);
+      let total: number = calcTotal(item, itemSize, itemNum, addedToppings);
+      setTotalPrice(total);
     }
-  }, [addedToppings, itemSize, itemNum]);
+  }, [item, addedToppings, itemSize, itemNum]);
 
   const doAddCart = () => {
-    let selectedToppings: Top[] = addedToppings.filter((top) => top.size !== 9);
+    let selectedToppings: CartTopType[] = addedToppings.filter(
+      (top) => top.size !== 9
+    );
     let cartItem: CartItemType = {
       id: createRandomId(),
       itemId: parseInt(itemid),
@@ -83,6 +63,7 @@ export const ItemInfo = () => {
       itemSize: itemSize,
       toppings: selectedToppings,
     };
+    console.log(cartItem)
     if (user.uid) {
       if (Object.keys(cart).length !== 0) {
         dispatch(updateCart(cartItem, user.uid, cart));
@@ -113,7 +94,7 @@ export const ItemInfo = () => {
         addedToppings={addedToppings}
         setAddedToppings={setAddedToppings}
       />
-      <CalcTotal totalPrice={totalPrice} setTotalPrice={setTotalPrice} />
+      <Price price={totalPrice} bigsize={true} tax={true} />
       <Btn text="カートに追加する" onClk={() => doAddCart()} />
     </Container>
   );

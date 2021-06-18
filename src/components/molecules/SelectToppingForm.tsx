@@ -2,15 +2,10 @@ import { Container, FormLabel } from "@material-ui/core";
 import { selectToppings } from "../../app/store/topping/toppingsSlice";
 import { useAppSelector } from "../../app/hooks";
 import { SelectForm } from "../atoms/SelectForm";
-
-interface Top {
-  id: number;
-  size: number;
-}
-
+import { CartTopType } from "../../app/store/cart/cartSlice";
 interface Props {
-  addedToppings: Top[];
-  setAddedToppings: React.Dispatch<React.SetStateAction<Top[]>>;
+  addedToppings: CartTopType[];
+  setAddedToppings: React.Dispatch<React.SetStateAction<CartTopType[]>>;
 }
 
 export const SelectToppingForm = ({
