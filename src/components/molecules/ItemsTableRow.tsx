@@ -16,9 +16,10 @@ import { ToppingsTableCell } from "../atoms/ToppingsTableCell";
 interface Props {
   cart: CartType;
   cartItem: CartItemType;
+  show: boolean;
 }
 
-export const ItemsTableRow = ({ cart, cartItem }: Props) => {
+export const ItemsTableRow = ({ cart, cartItem, show }: Props) => {
   const items = useAppSelector(selectItems);
   const dispatch = useDispatch();
   const user = useAppSelector(selectUser);
@@ -66,7 +67,9 @@ export const ItemsTableRow = ({ cart, cartItem }: Props) => {
               </TableCell>
               {/* 削除ボタン */}
               <TableCell>
-                <Btn text="削除" onClk={() => doDeleteCartItem(cartItem)}></Btn>
+                {!show && (
+                  <Btn text="削除" onClk={() => doDeleteCartItem(cartItem)} />
+                )}
               </TableCell>
             </TableRow>
           )

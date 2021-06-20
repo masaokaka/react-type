@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { ItemType, selectItems } from "../../app/store/item/itemsSlice";
@@ -23,19 +23,18 @@ import {
 import { updateCart, createCart } from "../../app/store/cart/cartOperation";
 import { CartTopType } from "../../app/store/cart/cartSlice";
 
-const initialTops: CartTopType[] = [];
-
 export const ItemInfo = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useAppSelector(selectUser);
   const items = useAppSelector(selectItems);
   const cart = useAppSelector(selectCart);
-  const [addedToppings, setAddedToppings] = useState(initialTops);
+  const [addedToppings, setAddedToppings] = useState<CartTopType[]>([]);
   const [itemSize, setItemSize] = useState(SIZE_M_STATUS);
   const [itemNum, setItemNum] = useState(1);
   const { itemid }: { itemid: string } = useParams();
   const [item, setItem] = useState<ItemType>();
-  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     items.forEach((item): void => {
@@ -47,7 +46,13 @@ export const ItemInfo = () => {
 
   useEffect(() => {
     if (item !== undefined) {
-      let total: number = calcTotal(item, itemSize, itemNum, addedToppings);
+      let total: number = calcTotal(
+        items,
+        item.id,
+        itemSize,
+        itemNum,
+        addedToppings
+      );
       setTotalPrice(total);
     }
   }, [item, addedToppings, itemSize, itemNum]);
@@ -63,7 +68,6 @@ export const ItemInfo = () => {
       itemSize: itemSize,
       toppings: selectedToppings,
     };
-    console.log(cartItem)
     if (user.uid) {
       if (Object.keys(cart).length !== 0) {
         dispatch(updateCart(cartItem, user.uid, cart));
@@ -83,6 +87,7 @@ export const ItemInfo = () => {
         dispatch(setCart(newCart));
       }
     }
+    history.push("/cart");
   };
   return (
     <Container>

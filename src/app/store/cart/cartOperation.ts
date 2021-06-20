@@ -1,5 +1,6 @@
 import { db, fieldValue } from "../../../lib/firebase";
 import { setCart, CartItemType, CartType } from "./cartSlice";
+import { ORDER_STATUS_CART } from "../../../state/const";
 import { AppThunk } from "../../store";
 
 //カートの更新
@@ -47,7 +48,7 @@ export const fetchCart =
       .get()
       .then((snapShot) => {
         snapShot.forEach((doc) => {
-          if (doc.data().status === 0) {
+          if (doc.data().status === ORDER_STATUS_CART) {
             let cart: CartType = doc.data();
             cart.id = doc.id;
             dispatch(setCart(cart));

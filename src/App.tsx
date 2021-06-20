@@ -24,6 +24,10 @@ import { fetchItems } from "./app/store/item/itemsOperation";
 import { fetchToppings } from "./app/store/topping/toppingsOperation";
 import { unsetCart } from "./app/store/cart/cartSlice";
 import { fetchCart } from "./app/store/cart/cartOperation";
+import { fetchUserInfo } from "./app/store/userinfo/userinfoOperation";
+import { unsetUserInfo } from "./app/store/userinfo/userinfoSlice";
+import { fetchOrders } from "./app/store/order/ordersOperation";
+import { unsetOrders } from "./app/store/order/ordersSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,10 +40,14 @@ function App() {
         let uid = user.uid;
         let name = user.displayName;
         dispatch(setUser({ uid, name }));
-        dispatch(fetchCart(uid))
+        dispatch(fetchUserInfo(user.uid));
+        dispatch(fetchCart(uid));
+        dispatch(fetchOrders(uid));
       } else {
         dispatch(unsetUser());
+        dispatch(unsetUserInfo());
         dispatch(unsetCart());
+        dispatch(unsetOrders());
       }
     });
     dispatch(fetchItems());
@@ -67,7 +75,7 @@ function App() {
           <Route path="/register" exact component={Register} />
           <Route path="/login" exact component={Login} />
           <Route path="/cart" exact component={Cart} />
-          <Route path="/ordercomp/:token" exact component={OrderComp} />
+          <Route path="/ordercomp" exact component={OrderComp} />
           <Route path="/orderhistory" exact component={OrderHistory} />
           <Route path="/admin" component={Admin} />
           <Route path="/" component={Home} />

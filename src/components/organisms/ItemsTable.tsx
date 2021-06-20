@@ -7,19 +7,34 @@ import { ItemsTableRow } from "../molecules/ItemsTableRow";
 
 interface Props {
   cart: CartType;
+  show: boolean;
 }
-export const ItemsTable = ({ cart }: Props) => {
+export const ItemsTable = ({ cart, show }: Props) => {
   const items = useAppSelector(selectItems);
   return (
     <TableContainer component={Paper}>
       <Table>
-        <ItemsTableHead />
+        <ItemsTableHead
+          headTexts={[
+            "",
+            "商品名",
+            "価格(税抜)",
+            "個数",
+            "トッピング：価格(税抜)",
+            "",
+          ]}
+        />
         <TableBody>
           {cart.itemInfo!.map((cartItem, index) =>
             items.map(
               (item) =>
                 item.id === cartItem.itemId && (
-                  <ItemsTableRow key={index} cart={cart} cartItem={cartItem} />
+                  <ItemsTableRow
+                    key={index}
+                    cart={cart}
+                    cartItem={cartItem}
+                    show={show}
+                  />
                 )
             )
           )}

@@ -4,11 +4,10 @@ import Toolbar from "@material-ui/core/Toolbar";
 import { IconBtn } from "../atoms/IconBtn";
 import { HeadIconBtns } from "../molecules/HeadIconBtns";
 import { Logo } from "../atoms/Logo";
-import { SearchForm } from "../molecules/SearchFrom";
 import { useDispatch } from "react-redux";
 import { toggle } from "../../app/store/sidenavSlice";
 import { useAppSelector } from "../../app/hooks";
-import { selectUser } from "../../app/store/user/userSlice";
+import { selectUserInfo } from "../../app/store/userinfo/userinfoSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,15 +22,15 @@ const useStyles = makeStyles((theme) => ({
 export const Header = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const user = useAppSelector(selectUser);
+  const userInfo = useAppSelector(selectUserInfo);
+  
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.header}>
         <Toolbar>
           <IconBtn icon={"Menu"} onClk={() => dispatch(toggle(true))}></IconBtn>
           <Logo />
-          <SearchForm />
-          {user.uid && <p>ようこそ{user.uid}さん</p>}
+          {userInfo.username && <p>ようこそ{userInfo.username}さん</p>}
           <HeadIconBtns />
         </Toolbar>
       </AppBar>
