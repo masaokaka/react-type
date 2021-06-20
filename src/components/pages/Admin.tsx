@@ -52,7 +52,7 @@ export const Admin = () => {
   return (
     <React.Fragment>
       <Box>
-        <IconBtn icon={"Arrow"} onClk={() => history.push("/")}></IconBtn>
+        <IconBtn icon={"Arrow"} onClk={() => history.push("/")}/>
       </Box>
       <Router>
         <ul>
@@ -79,18 +79,14 @@ export const Admin = () => {
             path={`${match.path}/users/:userid`}
             exact
             component={AdminUserEdit}
-          ></Route>
-          <Route
-            path={`${match.path}/items`}
-            exact
-            component={AdminItems}
-          ></Route>
+          />
+          <Route path={`${match.path}/items`} exact component={AdminItems} />
           <Route
             path={`${match.path}/toppings`}
             exact
             component={AdminToppings}
-          ></Route>
-          <Route path={`${match.path}/users`} component={AdminUsers}></Route>
+          />
+          <Route path={`${match.path}`} component={AdminUsers} />
         </Switch>
         {/* </ScrollToTop> */}
       </Router>

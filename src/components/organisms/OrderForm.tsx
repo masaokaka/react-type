@@ -18,9 +18,10 @@ interface Props {
   cartId: string;
   userInfo: UserInfoType;
   uid: string;
+  totalPrice: number;
 }
 
-export const OrderForm = ({ cartId, userInfo, uid }: Props) => {
+export const OrderForm = ({ cartId, userInfo, uid, totalPrice }: Props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const {
@@ -45,6 +46,7 @@ export const OrderForm = ({ cartId, userInfo, uid }: Props) => {
       payType: 1,
       cardNo: "",
       timestamp: 0,
+      totalPrice: 0,
     },
   });
   //Payment Method hange watcher
@@ -53,7 +55,7 @@ export const OrderForm = ({ cartId, userInfo, uid }: Props) => {
   //住所検索処理
   const getAddress = () => {
     const zipcode = getValues("zipcode");
-    searchAddress(zipcode)
+    searchAddress(zipcode!)
       .then((address) => {
         setValue("address", address);
       })
@@ -83,13 +85,12 @@ export const OrderForm = ({ cartId, userInfo, uid }: Props) => {
   const doOrder: SubmitHandler<OrderInfoType> = (data) => {
     let timestamp = new Date();
     data.timestamp = Math.floor(timestamp.getTime() / 1000);
+    data.totalPrice = totalPrice;
     if (watchPayType === 2) {
       data.status = 2;
-      console.log(data);
     } else {
       data.status = 1;
       data.cardNo = "";
-      console.log(data);
     }
     dispatch(order(cartId, uid, data));
     history.push("/ordercomp");

@@ -10,7 +10,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 interface Props {
   icon: string;
-  onClk?: () => void;
+  onClk: () => void;
 }
 
 export const IconBtn = ({ icon, onClk }: Props) => {

@@ -1,5 +1,10 @@
-import { db, fieldValue } from "../../../lib/firebase";
-import { setOrders, OrderInfoType, OrderType } from "./ordersSlice";
+import { db } from "../../../lib/firebase";
+import {
+  setOrder,
+  OrderInfoType,
+  OrderType,
+  setAllOrders,
+} from "./ordersSlice";
 import { unsetCart } from "../cart/cartSlice";
 import { AppThunk } from "../../store";
 import { ORDER_STATUS_CART } from "../../../state/const";
@@ -12,6 +17,7 @@ export const order =
       .doc(cartId)
       .update(order)
       .then(() => {
+        dispatch(setOrder(order));
         dispatch(unsetCart());
       })
       .catch((error) => {
@@ -26,17 +32,42 @@ export const fetchOrders =
     db.collection(`users/${uid}/order`)
       .get()
       .then((snapShot) => {
-        let orders: OrderType[] = [];
         snapShot.forEach((doc) => {
           if (doc.data().status !== ORDER_STATUS_CART) {
             let order: OrderType = doc.data();
             order.id = doc.id;
-            orders = [...orders, order];
+            dispatch(setOrder(order));
           }
         });
-        dispatch(setOrders(orders));
       })
       .catch((error) => {
         alert(error);
+      });
+  };
+
+//注文のステータス更新処理
+export const updateOrderStatus =
+  (
+    uid: string,
+    orders: OrderType[],
+    orderId: string,
+    status: number
+  ): AppThunk =>
+  (dispatch): void => {
+    db.collection(`users/${uid}/order`)
+      .doc(orderId)
+      .update({ status: status })
+      .then(() => {
+        let newOrders: OrderType[] = orders.map((or): OrderType => {
+          if (or.id === orderId) {
+            let newOrder = { ...or };
+            newOrder.status = status;
+            console.log(newOrder);
+            return newOrder;
+          } else {
+            return or;
+          }
+        });
+        dispatch(setAllOrders(newOrders));
       });
   };

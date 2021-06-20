@@ -3,25 +3,26 @@ import { useAppSelector } from "../../app/hooks";
 import { CartType } from "../../app/store/cart/cartSlice";
 import { selectItems } from "../../app/store/item/itemsSlice";
 import { ItemsTableHead } from "../molecules/ItemsTableHead";
-import { ItemsTableRow } from "../molecules/ItemsTableRow";
+import { CartItemsTableRow } from "../molecules/CartItemsTableRow";
+import { ORDER_STATUS_CART } from "../../state/const";
 
 interface Props {
   cart: CartType;
   show: boolean;
 }
-export const ItemsTable = ({ cart, show }: Props) => {
+export const CartItemsTable = ({ cart, show }: Props) => {
   const items = useAppSelector(selectItems);
   return (
     <TableContainer component={Paper}>
       <Table>
         <ItemsTableHead
-          headTexts={[
-            "",
-            "商品名",
-            "価格(税抜)",
-            "個数",
-            "トッピング：価格(税抜)",
-            "",
+          heads={[
+            { text: "", col: 2 },
+            { text: "商品名", col: 2 },
+            { text: "価格(税抜)", col: 2 },
+            { text: "個数", col: 2 },
+            { text: "トッピング：価格(税抜)", col: 2 },
+            { text: "", col: 2 },
           ]}
         />
         <TableBody>
@@ -29,11 +30,12 @@ export const ItemsTable = ({ cart, show }: Props) => {
             items.map(
               (item) =>
                 item.id === cartItem.itemId && (
-                  <ItemsTableRow
+                  <CartItemsTableRow
                     key={index}
                     cart={cart}
                     cartItem={cartItem}
                     show={show}
+                    status={ORDER_STATUS_CART}
                   />
                 )
             )

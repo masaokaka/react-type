@@ -8,7 +8,7 @@ import { selectUser } from "../../app/store/user/userSlice";
 import { selectUserInfo } from "../../app/store/userinfo/userinfoSlice";
 import { fetchCart } from "../../app/store/cart/cartOperation";
 import { Container } from "@material-ui/core";
-import { ItemsTable } from "../organisms/ItemsTable";
+import { CartItemsTable } from "../organisms/CartItemsTable";
 import { OrderForm } from "../organisms/OrderForm";
 import { Btn } from "../atoms/Btn";
 import { Price } from "../atoms/Price";
@@ -52,10 +52,15 @@ export const Cart = () => {
       {cart.itemInfo !== undefined ? (
         cart.itemInfo.length !== 0 ? (
           <>
-            <ItemsTable cart={cart} show={show} />
+            <CartItemsTable cart={cart} show={show} />
             <Price price={totalPrice} bigsize={true} tax={true} />
             {show ? (
-              <OrderForm cartId={cart.id!} userInfo={userInfo} uid={user.uid!} />
+              <OrderForm
+                cartId={cart.id!}
+                userInfo={userInfo}
+                uid={user.uid!}
+                totalPrice={totalPrice}
+              />
             ) : (
               <Btn text="注文に進む" onClk={() => showOrderForm()} />
             )}

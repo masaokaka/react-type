@@ -77,7 +77,7 @@ function App() {
           <Route path="/cart" exact component={Cart} />
           <Route path="/ordercomp" exact component={OrderComp} />
           <Route path="/orderhistory" exact component={OrderHistory} />
-          <Route path="/admin" component={Admin} />
+          <Route path="/admin" exact component={Admin} />
           <Route path="/" component={Home} />
         </Switch>
         {/* </ScrollToTop> */}

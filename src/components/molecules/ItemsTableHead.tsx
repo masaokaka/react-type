@@ -1,15 +1,17 @@
 import { TableCell, TableHead, TableRow } from "@material-ui/core";
 
 interface Props {
-  headTexts: string[];
+  heads: { text: string; col: number }[];
 }
 
-export const ItemsTableHead = ({ headTexts }: Props) => {
+export const ItemsTableHead = ({ heads }: Props) => {
   return (
     <TableHead>
       <TableRow>
-        {headTexts.map((text, index) => (
-          <TableCell key={index}>{text}</TableCell>
+        {heads.map((head, index) => (
+          <TableCell key={index} align="center" colSpan={head.col}>
+            {head.text}
+          </TableCell>
         ))}
       </TableRow>
     </TableHead>
