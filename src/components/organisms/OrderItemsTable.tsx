@@ -1,5 +1,4 @@
 import { Table, TableBody, TableContainer, Paper } from "@material-ui/core";
-import { useAppSelector } from "../../app/hooks";
 import { OrderType } from "../../app/store/order/ordersSlice";
 import { ItemsTableHead } from "../molecules/ItemsTableHead";
 import { OrderItemsTableRow } from "../molecules/OrderItemsTableRow";

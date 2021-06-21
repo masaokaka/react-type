@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import {
   Table,
   TableContainer,
@@ -14,8 +15,9 @@ interface Props {
   toppings: ToppingType[];
 }
 export const AdminToppingsTable = ({ toppings }: Props) => {
+  const dispatch = useDispatch();
   const doDeleteTopping = (delTopping: ToppingType) => {
-    deleteTopping(delTopping, toppings);
+    dispatch(deleteTopping(delTopping, toppings));
   };
   return (
     <TableContainer>

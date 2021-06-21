@@ -1,5 +1,6 @@
 import { Container, Box } from "@material-ui/core";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ItemType } from "../../../app/store/item/itemsSlice";
 import { Name } from "../../molecules/forms/Name";
@@ -9,7 +10,7 @@ import { Lprice } from "../../molecules/forms/Lprice";
 import { Img } from "../../molecules/forms/Img";
 import { Text } from "../../molecules/forms/Text";
 import { Btn } from "../../atoms/Btn";
-import { addItem, addE } from "../../../app/store/item/itemsOperation";
+import { addItem } from "../../../app/store/item/itemsOperation";
 
 interface Props {
   itemsNum: number;
@@ -18,6 +19,7 @@ interface Props {
 
 export const AdminItemsForm = ({ itemsNum, items }: Props) => {
   const [imgFile, setImgFile] = useState<File | undefined>();
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -40,8 +42,7 @@ export const AdminItemsForm = ({ itemsNum, items }: Props) => {
   const doAddItem: SubmitHandler<ItemType> = (data) => {
     console.log(data);
     console.log(imgFile);
-    addItem(items, data, imgFile!);
-    addE();
+    dispatch(addItem(items, data, imgFile!));
   };
   return (
     <Container maxWidth="sm">

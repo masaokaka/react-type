@@ -1,10 +1,4 @@
-import {
-  Select,
-  InputLabel,
-  FormControl,
-  MenuItem,
-  FormLabel,
-} from "@material-ui/core";
+import { Select, FormControl, MenuItem, FormLabel } from "@material-ui/core";
 import React from "react";
 
 interface Props {

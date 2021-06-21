@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import {
   Table,
   TableContainer,
@@ -16,8 +17,9 @@ interface Props {
 }
 
 export const AdminItemsTable = ({ items }: Props) => {
+  const dispatch = useDispatch();
   const doDeleteItem = (delItem: ItemType) => {
-    deleteItem(delItem, items);
+    dispatch(deleteItem(delItem, items));
   };
   return (
     <TableContainer>

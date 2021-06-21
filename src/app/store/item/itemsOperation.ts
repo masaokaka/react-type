@@ -19,28 +19,23 @@ export const fetchItems = (): AppThunk => (dispatch) => {
     });
 };
 
-export const addE = (): AppThunk => (dispatch) => {
-  console.log("動き");
-};
 //商品追加
 export const addItem =
   (items: ItemType[], item: ItemType, img: File): AppThunk =>
   (dispatch) => {
-    console.log(item.img);
-    console.log(img);
-    // let storageRef = storage.ref().child(`img/${item.img}`);
-    // storageRef.put(img).then(() => {
-    //   storageRef.getDownloadURL().then((url) => {
-    //     item.img = url;
-    //     db.collection(ITEM_TABLE_PATH)
-    //       .doc(ITEM_TABLE_ID)
-    //       .update({ itemData: fieldValue.arrayUnion(item) })
-    //       .then(() => {
-    //         let newItems = [...items, item];
-    //         dispatch(setItems(newItems));
-    //       });
-    //   });
-    // });
+    let storageRef = storage.ref().child(`img/${item.img}`);
+    storageRef.put(img).then(() => {
+      storageRef.getDownloadURL().then((url) => {
+        item.img = url;
+        db.collection(ITEM_TABLE_PATH)
+          .doc(ITEM_TABLE_ID)
+          .update({ itemData: fieldValue.arrayUnion(item) })
+          .then(() => {
+            let newItems = [...items, item];
+            dispatch(setItems(newItems));
+          });
+      });
+    });
   };
 
 //商品削除

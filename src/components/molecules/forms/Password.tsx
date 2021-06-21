@@ -18,7 +18,7 @@ export const Password = ({ control, error }: Props) => {
           maxLength: 10,
           // pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])$/,
         }}
-        render={({ field }) => <TextField label="パスワード" {...field} />}
+        render={({ field }) => <TextField label="パスワード" type="password" {...field} />}
       />
       {error !== undefined && (
         <p style={{ color: "red" }}>

@@ -1,10 +1,5 @@
 import { db } from "../../../lib/firebase";
-import {
-  setOrder,
-  OrderInfoType,
-  OrderType,
-  setAllOrders,
-} from "./ordersSlice";
+import { setOrder, OrderType, setAllOrders } from "./ordersSlice";
 import { unsetCart } from "../cart/cartSlice";
 import { AppThunk } from "../../store";
 import { ORDER_STATUS_CART } from "../../../state/const";

@@ -20,6 +20,19 @@ export const fetchToppings = (): AppThunk => (dispatch) => {
     });
 };
 
+//トッピング追加
+export const addTopping =
+  (toppings: ToppingType[], topping: ToppingType): AppThunk =>
+  (dispatch) => {
+    db.collection(TOPPING_TABLE_PATH)
+      .doc(TOPPING_TABLE_ID)
+      .update({ toppingData: fieldValue.arrayUnion(topping) })
+      .then(() => {
+        let newToppings = [...toppings, topping];
+        dispatch(setToppings(newToppings));
+      });
+  };
+
 //トッピング削除
 export const deleteTopping =
   (delTopping: ToppingType, toppings: ToppingType[]): AppThunk =>
