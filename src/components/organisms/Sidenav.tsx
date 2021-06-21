@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,6 +13,9 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import HistoryIcon from "@material-ui/icons/History";
 import AdminIcon from "@material-ui/icons/SupervisorAccount";
 import { selectSidenav, toggle } from "../../app/store/sidenavSlice";
+import { useAppSelector } from "../../app/hooks";
+import { selectUser } from "../../app/store/user/userSlice";
+import { ADMIN_ID } from "../../state/admin";
 
 const useStyles = makeStyles({
   list: {
@@ -22,10 +25,48 @@ const useStyles = makeStyles({
     width: "auto",
   },
 });
+interface SideNavMenuType {
+  text: string;
+  icon: JSX.Element;
+  link: string;
+}
+
+const menu = [
+  { text: "ホーム", icon: <HomeIcon />, link: "/" },
+  { text: "カート", icon: <ShoppingCartIcon />, link: "/cart" },
+];
+const userMenu = [
+  ...menu,
+  {
+    text: "注文履歴",
+    icon: <HistoryIcon />,
+    link: "/orderhistory",
+  },
+];
+const adminMenu = [
+  ...userMenu,
+  {
+    text: "管理画面",
+    icon: <AdminIcon />,
+    link: "/admin",
+  },
+];
 
 export const Sidenav = () => {
   const toggleState = useSelector(selectSidenav);
   const dispatch = useDispatch();
+  const user = useAppSelector(selectUser);
+  const [menus, setMenus] = useState(menu);
+
+  useEffect(() => {
+    if (user.uid === ADMIN_ID) {
+      setMenus(adminMenu);
+    } else if (user.uid !== null) {
+      setMenus(userMenu);
+    } else {
+      setMenus(menu);
+    }
+  }, [user]);
   return (
     <React.Fragment>
       <Drawer
@@ -35,36 +76,18 @@ export const Sidenav = () => {
           dispatch(toggle(false));
         }}
       >
-        {toggleState && <SideNavContent />}
+        {toggleState && <SideNavContent menus={menus} />}
       </Drawer>
     </React.Fragment>
   );
 };
-
-const SideNavContent = () => {
+interface Props {
+  menus: SideNavMenuType[];
+}
+const SideNavContent = ({ menus }: Props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const menu = [
-    { text: "ホーム", icon: <HomeIcon />, link: "/" },
-    { text: "カート", icon: <ShoppingCartIcon />, link: "/cart" },
-  ];
-  const userMenu = [
-    ...menu,
-    {
-      text: "注文履歴",
-      icon: <HistoryIcon />,
-      link: "/orderhistory",
-    },
-  ];
-  const adminMenu = [
-    ...userMenu,
-    {
-      text: "管理画面",
-      icon: <AdminIcon />,
-      link: "/admin/users",
-    },
-  ];
   const link = (link: string) => {
     dispatch(toggle(false));
     history.push(link);
@@ -78,7 +101,7 @@ const SideNavContent = () => {
       </List>
       <Divider />
       <List>
-        {menu.map((item, index) => (
+        {menus.map((item, index) => (
           <ListItem
             button
             key={index}

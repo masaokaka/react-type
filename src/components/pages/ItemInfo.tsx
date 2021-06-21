@@ -48,7 +48,7 @@ export const ItemInfo = () => {
     if (item !== undefined) {
       let total: number = calcTotal(
         items,
-        item.id,
+        item.id!,
         itemSize,
         itemNum,
         addedToppings

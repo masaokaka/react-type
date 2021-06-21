@@ -1,6 +1,7 @@
-import { db } from "../../../lib/firebase";
+import { db, fieldValue } from "../../../lib/firebase";
 import { setToppings } from "./toppingsSlice";
 import { AppThunk } from "../../store";
+import { ToppingType } from "./toppingsSlice";
 import { TOPPING_TABLE_ID, TOPPING_TABLE_PATH } from "../../../state/admin";
 
 //アイテムの取得
@@ -11,10 +12,28 @@ export const fetchToppings = (): AppThunk => (dispatch) => {
     .then((doc) => {
       if (doc.exists) {
         let data = doc.data();
-          dispatch(setToppings(data!.toppingData));
+        dispatch(setToppings(data!.toppingData));
       }
     })
     .catch((error) => {
       alert(error);
     });
 };
+
+//トッピング削除
+export const deleteTopping =
+  (delTopping: ToppingType, toppings: ToppingType[]): AppThunk =>
+  (dispatch): void => {
+    db.collection(TOPPING_TABLE_PATH)
+      .doc(TOPPING_TABLE_ID)
+      .update({ toppingData: fieldValue.arrayRemove(delTopping) })
+      .then(() => {
+        let newToppings = toppings.filter(
+          (topping) => topping.id !== delTopping.id
+        );
+        dispatch(setToppings(newToppings));
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };

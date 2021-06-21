@@ -45,11 +45,11 @@ export const Item = ({ item }: Props) => {
           <Grid container>
             <Grid item xs={6}>
               <strong>M:</strong>
-              <Price price={item.mprice} bigsize={false} tax={false}></Price>
+              <Price price={item.mprice!} bigsize={false} tax={false}></Price>
             </Grid>
             <Grid item xs={6}>
               <strong>L:</strong>
-              <Price price={item.lprice} bigsize={false} tax={false}></Price>
+              <Price price={item.lprice!} bigsize={false} tax={false}></Price>
             </Grid>
           </Grid>
         </Typography>

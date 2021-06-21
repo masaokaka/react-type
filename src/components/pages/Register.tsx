@@ -6,7 +6,7 @@ import { selectUser } from "../../app/store/user/userSlice";
 import { register } from "../../app/store/user/userOperation";
 import { Container, Box } from "@material-ui/core";
 import { Btn } from "../atoms/Btn";
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { UserInfoType } from "../../app/store/userinfo/userinfoSlice";
 import { Name } from "../molecules/forms/Name";
 import { Tel } from "../molecules/forms/Tel";
@@ -16,15 +16,14 @@ import { UserName } from "../molecules/forms/UserName";
 import { Email } from "../molecules/forms/Email";
 import { Password } from "../molecules/forms/Password";
 
-export interface RegisterInfoType extends UserInfoType {
-  password: string;
+interface RegisterInfoType extends UserInfoType {
+  password?: string;
 }
 
 export const Register = () => {
   const user = useAppSelector(selectUser);
   const history = useHistory();
   const dispatch = useDispatch();
-
   const {
     control,
     handleSubmit,
@@ -32,8 +31,7 @@ export const Register = () => {
     setValue,
     getValues,
     setError,
-    clearErrors,
-  } = useForm<FieldValues>({
+  } = useForm<RegisterInfoType>({
     mode: "onBlur",
     defaultValues: {
       name: "",

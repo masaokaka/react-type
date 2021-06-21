@@ -31,7 +31,7 @@ export const SelectForm = ({
   useEffect(() => {
     //最初は空なので、空だったらたしてやる処理を書く。
     if (addedToppings.length === 0) {
-      setAddedToppings([{ id: topping.id, size: size }]);
+      setAddedToppings([{ id: topping.id!, size: size }]);
     } else {
       let index: number | null = null;
       addedToppings.forEach((top) => {
@@ -43,7 +43,7 @@ export const SelectForm = ({
         addedToppings[index].size = size;
         setAddedToppings([...addedToppings]);
       } else {
-        setAddedToppings([...addedToppings, { id: topping.id, size: size }]);
+        setAddedToppings([...addedToppings, { id: topping.id!, size: size }]);
       }
     }
   }, [size]);

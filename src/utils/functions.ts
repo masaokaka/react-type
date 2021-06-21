@@ -26,9 +26,9 @@ export const calcTotal = (
     return it.id === itemId;
   });
   if (itemSize === SIZE_M_STATUS) {
-    total += items[index].mprice * itemNum;
+    total += items[index].mprice! * itemNum;
   } else if (itemSize === SIZE_L_STATUS) {
-    total += items[index].lprice * itemNum;
+    total += items[index].lprice! * itemNum;
   }
   let selectedToppings: CartTopType[] = addedToppings.filter(
     (top) => top.size !== 9

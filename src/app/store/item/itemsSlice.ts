@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
 export interface ItemType {
-  id: number;
-  name: string;
-  text: string;
-  mprice: number;
-  lprice: number;
-  img: string;
+  id?: number;
+  name?: string;
+  text?: string;
+  mprice?: number;
+  lprice?: number;
+  img?: string;
 }
 
 const initialState: ItemType[] = [];

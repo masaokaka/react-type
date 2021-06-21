@@ -2,10 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
 export interface ToppingType {
-  id: number;
-  name: string;
-  mprice: number;
-  lprice: number;
+  id?: number;
+  name?: string;
+  mprice?: number;
+  lprice?: number;
 }
 
 const initialState: ToppingType[] = [];

@@ -21,6 +21,7 @@ import { IconBtn } from "../atoms/IconBtn";
 
 import { fetchToppings } from "../../app/store/topping/toppingsOperation";
 import { fetchItems } from "../../app/store/item/itemsOperation";
+import { fetchUsersInfo } from "../../app/store/usersinfo/usersinfoOperation";
 
 const useStyles = makeStyles(() => ({
   link: {
@@ -46,29 +47,30 @@ export const Admin = () => {
     } else {
       dispatch(fetchItems());
       dispatch(fetchToppings());
+      dispatch(fetchUsersInfo());
     }
   }, []);
 
   return (
     <React.Fragment>
       <Box>
-        <IconBtn icon={"Arrow"} onClk={() => history.push("/")}/>
+        <IconBtn icon={"Arrow"} onClk={() => history.push("/")} />
       </Box>
       <Router>
         <ul>
           <li>
             <Link to={`${match.url}/users`} className={classes.link}>
-              <h4>ユーザー情報</h4>
+              <p>ユーザー情報</p>
             </Link>
           </li>
           <li>
             <Link to={`${match.url}/items`} className={classes.link}>
-              <h4>商品情報</h4>
+              <p>商品情報</p>
             </Link>
           </li>
           <li>
             <Link to={`${match.url}/toppings`} className={classes.link}>
-              <h4>トッピング情報</h4>
+              <p>トッピング情報</p>
             </Link>
           </li>
         </ul>

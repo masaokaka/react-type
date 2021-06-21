@@ -57,11 +57,11 @@ export const CartItemsTableRow = ({ cart, cartItem, show, status }: Props) => {
               {/* 価格 */}
               {cartItem.itemSize === 0 ? (
                 <TableCell colSpan={2} align="center">
-                  <Price price={item.mprice} tax={false} bigsize={false} />
+                  <Price price={item.mprice!} tax={false} bigsize={false} />
                 </TableCell>
               ) : (
                 <TableCell colSpan={2} align="center">
-                  <Price price={item.lprice} tax={false} bigsize={false} />
+                  <Price price={item.lprice!} tax={false} bigsize={false} />
                 </TableCell>
               )}
 

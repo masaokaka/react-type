@@ -7,7 +7,7 @@ import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import MeetingRoomOutlinedIcon from "@material-ui/icons/MeetingRoomOutlined";
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-
+import EditIcon from "@material-ui/icons/Edit";
 interface Props {
   icon: string;
   onClk: () => void;
@@ -24,6 +24,7 @@ export const IconBtn = ({ icon, onClk }: Props) => {
       {icon === "Logout" && <MeetingRoomOutlinedIcon />}
       {icon === "Search" && <SearchIcon />}
       {icon === "Arrow" && <ArrowBackIcon />}
+      {icon === "Edit" && <EditIcon />}
     </IconButton>
   );
 };

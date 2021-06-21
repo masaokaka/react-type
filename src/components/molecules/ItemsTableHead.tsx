@@ -1,7 +1,11 @@
 import { TableCell, TableHead, TableRow } from "@material-ui/core";
 
+export interface HeadsType {
+  text: string;
+  col: number;
+}
 interface Props {
-  heads: { text: string; col: number }[];
+  heads: HeadsType[];
 }
 
 export const ItemsTableHead = ({ heads }: Props) => {
