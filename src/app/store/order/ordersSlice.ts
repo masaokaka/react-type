@@ -29,12 +29,16 @@ export const ordersSlice = createSlice({
   initialState,
   reducers: {
     setOrder: (state, action: PayloadAction<OrderType>) => {
-      return [...state, action.payload];
+      let newState = [...state, action.payload];
+      newState.sort((a, b) => b.timestamp! - a.timestamp!);
+      return (state = newState);
     },
     unsetOrders: (state) => {
       return (state = initialState);
     },
     setAllOrders: (state, action: PayloadAction<OrderType[]>) => {
+      let newState = [...action.payload];
+      newState.sort((a, b) => b.timestamp! - a.timestamp!);
       return (state = action.payload);
     },
   },

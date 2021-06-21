@@ -19,7 +19,6 @@ export const fetchUserInfo =
 export const registerUserInfo =
   (userInfo: UserInfoType): AppThunk =>
     (dispatch) => {
-    console.log(`${userInfo}デデデ`);
     db.collection(`users/${userInfo.uid}/userInfo`)
       .add(userInfo)
       .then(() => {

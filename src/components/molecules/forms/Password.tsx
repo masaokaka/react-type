@@ -1,0 +1,35 @@
+import { Box, TextField } from "@material-ui/core";
+import { Controller, Control, FieldError } from "react-hook-form";
+
+interface Props {
+  control: Control;
+  error: FieldError;
+}
+
+export const Password = ({ control, error }: Props) => {
+  return (
+    <Box mt={3}>
+      <Controller
+        name="password"
+        control={control}
+        rules={{
+          required: true,
+          minLength: 8,
+          maxLength: 10,
+          // pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])$/,
+        }}
+        render={({ field }) => <TextField label="パスワード" {...field} />}
+      />
+      {error !== undefined && (
+        <p style={{ color: "red" }}>
+          {error.type === "required" && "パスワードを入力してください"}
+          {error.type === "minLength" &&
+            "パスワードは8文字以上10文字以内で登録して下さい"}
+          {error.type === "maxLength" &&
+            "パスワードは8文字以上10文字以内で登録して下さい"}
+          {/* {errors.password?.type === "pattern" &&
+                "大文字小文字半角英数字のみ使用可能です"} */}
+        </p>)}
+    </Box>
+  );
+};

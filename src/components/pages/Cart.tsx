@@ -7,7 +7,7 @@ import { selectItems } from "../../app/store/item/itemsSlice";
 import { selectUser } from "../../app/store/user/userSlice";
 import { selectUserInfo } from "../../app/store/userinfo/userinfoSlice";
 import { fetchCart } from "../../app/store/cart/cartOperation";
-import { Container } from "@material-ui/core";
+import { Container, Box } from "@material-ui/core";
 import { CartItemsTable } from "../organisms/CartItemsTable";
 import { OrderForm } from "../organisms/OrderForm";
 import { Btn } from "../atoms/Btn";
@@ -53,17 +53,18 @@ export const Cart = () => {
         cart.itemInfo.length !== 0 ? (
           <>
             <CartItemsTable cart={cart} show={show} />
-            <Price price={totalPrice} bigsize={true} tax={true} />
-            {show ? (
-              <OrderForm
-                cartId={cart.id!}
-                userInfo={userInfo}
-                uid={user.uid!}
-                totalPrice={totalPrice}
-              />
-            ) : (
-              <Btn text="注文に進む" onClk={() => showOrderForm()} />
-            )}
+            <Box mt={3} textAlign="center">
+              <Price price={totalPrice} bigsize={true} tax={true} />
+              {show ? (
+                <OrderForm
+                  cart={cart}
+                  userInfo={userInfo}
+                  totalPrice={totalPrice}
+                />
+              ) : (
+                <Btn text="注文に進む" onClk={() => showOrderForm()} />
+              )}
+            </Box>
           </>
         ) : (
           <div>商品がありません</div>

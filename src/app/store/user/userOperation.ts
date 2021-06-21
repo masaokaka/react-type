@@ -24,11 +24,11 @@ export const logout = () => {
 
 //新規登録
 export const register =
-  (email: string, password: string, userInfo: UserInfoType): AppThunk =>
+  (password: string, userInfo: UserInfoType): AppThunk =>
   (dispatch) => {
     auth.setPersistence(sessionPersistance).then(() => {
       auth
-        .createUserWithEmailAndPassword(email, password)
+        .createUserWithEmailAndPassword(userInfo.email!, password)
         .then(() => {
           let user = auth.currentUser;
           if (user !== null) {

@@ -11,13 +11,13 @@ import { ORDER_STATUS_CART } from "../../../state/const";
 
 //注文確定
 export const order =
-  (cartId: string, uid: string, order: OrderInfoType): AppThunk =>
+  (newOrder: OrderType): AppThunk =>
   (dispatch): void => {
-    db.collection(`users/${uid}/order`)
-      .doc(cartId)
-      .update(order)
+    db.collection(`users/${newOrder.userId}/order`)
+      .doc(newOrder.id)
+      .update(newOrder)
       .then(() => {
-        dispatch(setOrder(order));
+        dispatch(setOrder(newOrder));
         dispatch(unsetCart());
       })
       .catch((error) => {
@@ -62,7 +62,6 @@ export const updateOrderStatus =
           if (or.id === orderId) {
             let newOrder = { ...or };
             newOrder.status = status;
-            console.log(newOrder);
             return newOrder;
           } else {
             return or;
