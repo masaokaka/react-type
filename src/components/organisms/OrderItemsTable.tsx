@@ -5,8 +5,9 @@ import { OrderItemsTableRow } from "../molecules/OrderItemsTableRow";
 
 interface Props {
   orders: OrderType[];
+  uid: string;
 }
-export const OrderItemsTable = ({ orders }: Props) => {
+export const OrderItemsTable = ({ orders, uid }: Props) => {
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -20,7 +21,12 @@ export const OrderItemsTable = ({ orders }: Props) => {
         />
         <TableBody>
           {orders.map((order, index) => (
-            <OrderItemsTableRow key={index} order={order} orders={orders} />
+            <OrderItemsTableRow
+              key={index}
+              order={order}
+              orders={orders}
+              uid={uid}
+            />
           ))}
         </TableBody>
       </Table>

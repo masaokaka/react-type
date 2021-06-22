@@ -9,7 +9,7 @@ export const AdminItems = () => {
   return (
     <Container>
       <h2>商品管理画面</h2>
-      <AdminItemsForm itemsNum={items.length} items={items}/>
+      <AdminItemsForm items={items} />
       {items.length !== 0 ? (
         <AdminItemsTable items={items} />
       ) : (

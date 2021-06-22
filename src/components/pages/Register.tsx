@@ -52,8 +52,9 @@ export const Register = () => {
       tel: data.tel,
       username: data.username,
     };
+    console.log(userInfo);
     dispatch(register(data.password!, userInfo));
-    history.push("/");
+    history.push("/")
   };
 
   useEffect(() => {

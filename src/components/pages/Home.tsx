@@ -1,4 +1,4 @@
-import Container from "@material-ui/core/Container";
+import { Container, Box } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import { Items } from "../../components/molecules/Items";
 import { useAppSelector } from "../../app/hooks";
@@ -13,20 +13,25 @@ export const Home = () => {
   useEffect(() => {
     setSearchItems(items);
   }, [items]);
+
   const search = (word: string) => {
-    if (word === "") {
+    if (word === "" || word === undefined) {
       setSearchItems(items);
     } else {
-      let newItems = searchItems!.filter(
+      let newItems = items!.filter(
         (item) => item.name!.indexOf(word) >= 0
       );
       setSearchItems(newItems);
     }
   };
   return (
-    <Container>
-      <SearchForm search={search} />
-      <Items items={searchItems!} />
+    <Container maxWidth="xl">
+      <Box m={3} textAlign="right">
+        <SearchForm search={search} />
+      </Box>
+      <Box>
+        <Items items={searchItems!} />
+      </Box>
     </Container>
   );
 };

@@ -9,9 +9,11 @@ interface Props {
 export const Items = ({ items }: Props) => {
   return (
     <Box display="flex" flexWrap="wrap">
-      {items.map((item, index) => (
-        <Item item={item} key={index} />
-      ))}
+      {items.length === 0 ? (
+        <h3>該当する商品はありません</h3>
+      ) : (
+        items.map((item, index) => <Item item={item} key={index} />)
+      )}
     </Box>
   );
 };

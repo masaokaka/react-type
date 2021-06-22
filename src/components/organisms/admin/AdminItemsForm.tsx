@@ -13,11 +13,10 @@ import { Btn } from "../../atoms/Btn";
 import { addItem } from "../../../app/store/item/itemsOperation";
 
 interface Props {
-  itemsNum: number;
   items: ItemType[];
 }
 
-export const AdminItemsForm = ({ itemsNum, items }: Props) => {
+export const AdminItemsForm = ({ items }: Props) => {
   const [imgFile, setImgFile] = useState<File | undefined>();
   const dispatch = useDispatch();
   const {
@@ -30,7 +29,7 @@ export const AdminItemsForm = ({ itemsNum, items }: Props) => {
   } = useForm<ItemType>({
     mode: "onBlur",
     defaultValues: {
-      id: itemsNum + 1,
+      id: items.length + 1,
       name: "",
       text: "",
       mprice: 0,

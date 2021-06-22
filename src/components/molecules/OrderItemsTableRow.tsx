@@ -1,11 +1,9 @@
 import { Table, TableCell, TableRow, TableBody } from "@material-ui/core";
-import { useAppSelector } from "../../app/hooks";
 import { useDispatch } from "react-redux";
 import { Btn } from "../atoms/Btn";
 import { timestampToDate } from "../../utils/functions";
 import { Price } from "../atoms/Price";
 import { ItemsTableHead } from "./ItemsTableHead";
-import { selectUser } from "../../app/store/user/userSlice";
 import { OrderType } from "../../app/store/order/ordersSlice";
 import {
   ORDER_STATUS_UNPAID,
@@ -20,16 +18,14 @@ import { updateOrderStatus } from "../../app/store/order/ordersOperation";
 interface Props {
   order: OrderType;
   orders: OrderType[];
+  uid: string;
 }
-export const OrderItemsTableRow = ({ order, orders }: Props) => {
+export const OrderItemsTableRow = ({ order, orders, uid }: Props) => {
   const dispatch = useDispatch();
-  const user = useAppSelector(selectUser);
 
   const cancelStatus = (orderId: string) => {
     if (window.confirm("注文をキャンセルしますか?")) {
-      dispatch(
-        updateOrderStatus(user.uid!, orders, orderId, ORDER_STATUS_CANCELLED)
-      );
+      dispatch(updateOrderStatus(uid, orders, orderId, ORDER_STATUS_CANCELLED));
     }
   };
   return (

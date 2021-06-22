@@ -22,13 +22,6 @@ export const Cart = () => {
   const items = useAppSelector(selectItems);
   const userInfo = useAppSelector(selectUserInfo);
   const [show, setShow] = useState(false);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    user.uid && dispatch(fetchCart(user.uid));
-  }, []);
-  const showOrderForm = () => {
-    user.uid ? setShow(true) : history.push("/login");
-  };
 
   useEffect(() => {
     if (cart.itemInfo !== undefined) {
@@ -46,6 +39,9 @@ export const Cart = () => {
     }
   }, [cart]);
 
+  const showOrderForm = () => {
+    user.uid ? setShow(true) : history.push("/login");
+  };
   return (
     <Container>
       <h2>カート</h2>
@@ -67,10 +63,10 @@ export const Cart = () => {
             </Box>
           </>
         ) : (
-          <div>商品がありません</div>
+          <h3>商品がありません</h3>
         )
       ) : (
-        <div>商品がありません</div>
+        <h3>商品がありません</h3>
       )}
     </Container>
   );

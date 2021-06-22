@@ -1,6 +1,5 @@
-import { Grid } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { useState } from "react";
-import { SetStateAction } from "react";
 import { IconBtn } from "../atoms/IconBtn";
 import { TextField } from "@material-ui/core";
 
@@ -10,15 +9,16 @@ interface Props {
 export const SearchForm = ({ search }: Props) => {
   const [word, setWord] = useState<string>();
   return (
-    <Grid>
+    <Box>
       <TextField
         type="text"
-        variant="filled"
+        variant="outlined"
         size="small"
         label="検索"
+        color="primary"
         onChange={(e) => setWord(e.target.value)}
       />
       <IconBtn icon="Search" onClk={() => search(word!)} />
-    </Grid>
+    </Box>
   );
 };

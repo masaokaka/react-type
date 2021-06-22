@@ -8,7 +8,7 @@ export const AdminToppings = () => {
   return (
     <Container>
       <h2>トッピング管理画面</h2>
-      <AdminToppingsForm toppingsNum={toppings.length} toppings={toppings} />
+      <AdminToppingsForm toppings={toppings} />
       {toppings.length !== 0 ? (
         <AdminToppingsTable toppings={toppings} />
       ) : (
