@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { selectUser } from "../../app/store/user/userSlice";
 import { register } from "../../app/store/user/userOperation";
 import { Container, Box } from "@material-ui/core";
-import { Btn } from "../atoms/Btn";
+import { Btn } from "../atoms/Btn/Btn";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { UserInfoType } from "../../app/store/userinfo/userinfoSlice";
 import { Name } from "../molecules/forms/Name";

@@ -8,9 +8,9 @@ import {
 } from "@material-ui/core";
 import { ToppingType } from "../../../app/store/topping/toppingsSlice";
 import { ItemsTableHead } from "../../molecules/ItemsTableHead";
-import { Btn } from "../../atoms/Btn";
+import { Btn } from "../../atoms/Btn/Btn";
 import { deleteTopping } from "../../../app/store/topping/toppingsOperation";
-import { Price } from "../../atoms/Price";
+import { Price } from "../../atoms/Price/Price";
 interface Props {
   toppings: ToppingType[];
 }

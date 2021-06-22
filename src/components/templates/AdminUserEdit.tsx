@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { Btn } from "../atoms/Btn";
+import { Btn } from "../atoms/Btn/Btn";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Container } from "@material-ui/core";

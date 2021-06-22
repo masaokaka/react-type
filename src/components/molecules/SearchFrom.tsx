@@ -1,6 +1,6 @@
 import { Box } from "@material-ui/core";
 import { useState } from "react";
-import { IconBtn } from "../atoms/IconBtn";
+import { IconBtn } from "../atoms/IconBtn/IconBtn";
 import { TextField } from "@material-ui/core";
 
 interface Props {

@@ -1,4 +1,4 @@
-import { Item } from "../atoms/Item";
+import { Item } from "../atoms/Item/Item";
 import Box from "@material-ui/core/Box";
 import { ItemType } from "../../app/store/item/itemsSlice";
 

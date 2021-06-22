@@ -9,7 +9,7 @@ import { Mprice } from "../../molecules/forms/Mprice";
 import { Lprice } from "../../molecules/forms/Lprice";
 import { Img } from "../../molecules/forms/Img";
 import { Text } from "../../molecules/forms/Text";
-import { Btn } from "../../atoms/Btn";
+import { Btn } from "../../atoms/Btn/Btn";
 import { addItem } from "../../../app/store/item/itemsOperation";
 
 interface Props {

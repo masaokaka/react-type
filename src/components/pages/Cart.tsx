@@ -10,8 +10,8 @@ import { fetchCart } from "../../app/store/cart/cartOperation";
 import { Container, Box } from "@material-ui/core";
 import { CartItemsTable } from "../organisms/CartItemsTable";
 import { OrderForm } from "../organisms/OrderForm";
-import { Btn } from "../atoms/Btn";
-import { Price } from "../atoms/Price";
+import { Btn } from "../atoms/Btn/Btn";
+import { Price } from "../atoms/Price/Price";
 import { calcTotal } from "../../utils/functions";
 
 export const Cart = () => {

@@ -1,6 +1,6 @@
 import { Container, Box } from "@material-ui/core";
 import { useHistory } from "react-router";
-import { Btn } from "../atoms/Btn";
+import { Btn } from "../atoms/Btn/Btn";
 import { useDispatch } from "react-redux";
 import { UserInfoType } from "../../app/store/userinfo/userinfoSlice";
 import { OrderInfoType, OrderType } from "../../app/store/order/ordersSlice";

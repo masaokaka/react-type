@@ -8,9 +8,9 @@ import {
 } from "@material-ui/core";
 import { ItemType } from "../../../app/store/item/itemsSlice";
 import { ItemsTableHead } from "../../molecules/ItemsTableHead";
-import { Btn } from "../../atoms/Btn";
+import { Btn } from "../../atoms/Btn/Btn";
 import { deleteItem } from "../../../app/store/item/itemsOperation";
-import { Price } from "../../atoms/Price";
+import { Price } from "../../atoms/Price/Price";
 
 interface Props {
   items: ItemType[];

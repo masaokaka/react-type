@@ -1,4 +1,4 @@
-import { IconBtn } from "../atoms/IconBtn";
+import { IconBtn } from "../atoms/IconBtn/IconBtn";
 import { useHistory } from "react-router";
 import Box from "@material-ui/core/Box";
 import { selectUser } from "../../app/store/user/userSlice";

@@ -1,8 +1,8 @@
 import { Table, TableCell, TableRow, TableBody } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { Btn } from "../atoms/Btn";
+import { Btn } from "../atoms/Btn/Btn";
 import { timestampToDate } from "../../utils/functions";
-import { Price } from "../atoms/Price";
+import { Price } from "../atoms/Price/Price";
 import { ItemsTableHead } from "./ItemsTableHead";
 import { OrderType } from "../../app/store/order/ordersSlice";
 import {

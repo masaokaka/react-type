@@ -3,7 +3,7 @@ import { Container, Box } from "@material-ui/core";
 import { login } from "../../app/store/user/userOperation";
 import { Email } from "../molecules/forms/Email";
 import { Password } from "../molecules/forms/Password";
-import { Btn } from "../atoms/Btn";
+import { Btn } from "../atoms/Btn/Btn";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 interface LoginInfoType {

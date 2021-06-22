@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { IconBtn } from "../atoms/IconBtn";
+import { IconBtn } from "../atoms/IconBtn/IconBtn";
 import { HeadIconBtns } from "../molecules/HeadIconBtns";
 import { Logo } from "../atoms/Logo";
 import { useDispatch } from "react-redux";

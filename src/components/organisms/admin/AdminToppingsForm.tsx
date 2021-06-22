@@ -7,7 +7,7 @@ import { Name } from "../../molecules/forms/Name";
 import { Id } from "../../molecules/forms/Id";
 import { Mprice } from "../../molecules/forms/Mprice";
 import { Lprice } from "../../molecules/forms/Lprice";
-import { Btn } from "../../atoms/Btn";
+import { Btn } from "../../atoms/Btn/Btn";
 import { addTopping } from "../../../app/store/topping/toppingsOperation";
 import { SIZE_L_PRICE, SIZE_M_PRICE } from "../../../state/const";
 
