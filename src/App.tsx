@@ -1,56 +1,88 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Switch, Route } from "react-router-dom";
+import { Header } from "./components/organisms/Header";
+import { Footer } from "./components/organisms/Footer";
+import { Sidenav } from "./components/organisms/Sidenav";
+import Container from "@material-ui/core/Container";
+// import ScrollToTop from "./features/ScrollToTop";
+import "./App.css";
+import { auth } from "./lib/firebase/index";
+
+import { Home } from "./components/pages/Home";
+import { Login } from "./components/pages/Login";
+import { Register } from "./components/pages/Register";
+import { ItemInfo } from "./components/pages/ItemInfo";
+import { Cart } from "./components/pages/Cart";
+import { OrderHistory } from "./components/pages/OrderHistory";
+import { OrderComp } from "./components/pages/OrderComp";
+import { Admin } from "./components/pages/Admin";
+import { selectUser, setUser, unsetUser } from "./app/store/user/userSlice";
+import { useAppSelector } from "./app/hooks";
+import { fetchItems } from "./app/store/item/itemsOperation";
+import { fetchToppings } from "./app/store/topping/toppingsOperation";
+import { unsetCart } from "./app/store/cart/cartSlice";
+import { fetchCart } from "./app/store/cart/cartOperation";
+import { fetchUserInfo } from "./app/store/userinfo/userinfoOperation";
+import { unsetUserInfo } from "./app/store/userinfo/userinfoSlice";
+import { fetchOrders } from "./app/store/order/ordersOperation";
+import { unsetOrders } from "./app/store/order/ordersSlice";
 
 function App() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const user = useAppSelector(selectUser);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        let uid = user.uid;
+        let name = user.displayName;
+        dispatch(setUser({ uid, name }));
+        dispatch(fetchUserInfo(user.uid));
+        dispatch(fetchCart(uid));
+        dispatch(fetchOrders(uid));
+      } else {
+        dispatch(unsetUser());
+        dispatch(unsetUserInfo());
+        dispatch(unsetCart());
+        dispatch(unsetOrders());
+      }
+    });
+    dispatch(fetchItems());
+    dispatch(fetchToppings());
+  }, []);
+
+  useEffect(() => {
+    history.push("/");
+  }, [user]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div style={{ minHeight: "100%", minWidth: "100%", overflow: "hidden" }}>
+      <Header />
+      <Sidenav />
+      <Container
+        style={{
+          display: "flex",
+          minHeight: "100vh",
+          flexDirection: "column",
+        }}
+      >
+        {/* <ScrollToTop> */}
+        <Switch>
+          <Route path="/iteminfo/:itemid" exact component={ItemInfo} />
+          <Route path="/register" exact component={Register} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/cart" exact component={Cart} />
+          <Route path="/ordercomp" exact component={OrderComp} />
+          <Route path="/orderhistory" exact component={OrderHistory} />
+          <Route path="/admin" exact component={Admin} />
+          <Route path="/" component={Home} />
+        </Switch>
+        {/* </ScrollToTop> */}
+      </Container>
+      <Footer />
     </div>
   );
 }
