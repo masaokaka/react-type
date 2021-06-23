@@ -70,9 +70,9 @@ export const ItemInfo = () => {
     };
     if (user.uid) {
       if (Object.keys(cart).length !== 0) {
-        dispatch(updateCart(cartItem, user.uid, cart));
+        dispatch(updateCart([cartItem], user.uid, cart));
       } else {
-        dispatch(createCart(cartItem, user.uid));
+        dispatch(createCart([cartItem], user.uid));
       }
     } else {
       if (Object.keys(cart).length === 0) {

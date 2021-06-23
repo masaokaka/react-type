@@ -38,7 +38,12 @@ export const Cart = () => {
   }, [cart]);
 
   const showOrderForm = () => {
-    user.uid ? setShow(true) : history.push("/login");
+    if (user.uid) {
+      setShow(true);
+    } else {
+      localStorage.setItem("ItemInfo",JSON.stringify(cart.itemInfo))
+      history.push("/login");
+    }
   };
   return (
     <Container>

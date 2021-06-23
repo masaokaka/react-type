@@ -23,7 +23,6 @@ export const Header = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const userInfo = useAppSelector(selectUserInfo);
-
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.header}>
