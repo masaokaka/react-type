@@ -18,9 +18,7 @@ export const Home = () => {
     if (word === "" || word === undefined) {
       setSearchItems(items);
     } else {
-      let newItems = items!.filter(
-        (item) => item.name!.indexOf(word) >= 0
-      );
+      let newItems = items!.filter((item) => item.name!.indexOf(word) >= 0);
       setSearchItems(newItems);
     }
   };

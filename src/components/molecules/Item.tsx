@@ -13,7 +13,9 @@ const useStyles = makeStyles({
   root: {
     width: 280,
     height: 280,
-    margin: 10,
+    marginTop: 30,
+    marginRight: 8,
+    marginLeft: 8,
   },
   media: {
     height: 160,
@@ -30,7 +32,7 @@ export const Item = ({ item }: Props) => {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea onClick={()=>history.push(`iteminfo/${item.id}`)}>
+      <CardActionArea onClick={() => history.push(`iteminfo/${item.id}`)}>
         <CardMedia
           className={classes.media}
           image={item.img}

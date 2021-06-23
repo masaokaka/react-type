@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import Grid from "@material-ui/core/Grid";
 import { IconBtn } from "../atoms/IconBtn";
 import { HeadIconBtns } from "../molecules/HeadIconBtns";
 import { Logo } from "../atoms/Logo";
@@ -27,10 +28,23 @@ export const Header = () => {
     <div className={classes.root}>
       <AppBar position="static" className={classes.header}>
         <Toolbar>
-          <IconBtn icon={"Menu"} onClk={() => dispatch(toggle(true))}></IconBtn>
-          <Logo />
-          {userInfo.username && <p>ようこそ{userInfo.username}さん</p>}
-          <HeadIconBtns uid={userInfo.uid} />
+          <Grid container alignItems="center">
+            <Grid item>
+              <IconBtn
+                icon={"Menu"}
+                onClk={() => dispatch(toggle(true))}
+              ></IconBtn>
+            </Grid>
+            <Grid item>
+              <Logo />
+            </Grid>
+            <Grid item>
+              {userInfo.username && <p>ようこそ{userInfo.username}さん</p>}
+            </Grid>
+            <Grid item>
+              <HeadIconBtns uid={userInfo.uid} />
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
     </div>

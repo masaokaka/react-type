@@ -43,7 +43,6 @@ export const login =
                   }
                 } else {
                   dispatch(createCart(cartItem, uid));
-                  console.log("aa");
                 }
               });
           }
@@ -80,7 +79,6 @@ export const register =
               .doc(USER_TABLE_ID)
               .update({ userData: fieldValue.arrayUnion(userInfo) })
               .then(() => {
-                console.log("管理者への登録成功");
               })
               .catch((e) => {
                 alert(e);

@@ -39,8 +39,6 @@ export const AdminItemsForm = ({ items }: Props) => {
   });
 
   const doAddItem: SubmitHandler<ItemType> = (data) => {
-    console.log(data);
-    console.log(imgFile);
     dispatch(addItem(items, data, imgFile!));
   };
   return (

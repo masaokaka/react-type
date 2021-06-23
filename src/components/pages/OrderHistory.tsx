@@ -19,12 +19,10 @@ export const OrderHistory = () => {
     if (!user.uid) {
       history.push("/");
     } else {
-      dispatch(unsetOrders());
-      dispatch(fetchOrders(user.uid));
+      if (orders.length === 0) {
+        dispatch(fetchOrders(user.uid));
+      }
     }
-    return () => {
-      dispatch(unsetOrders());
-    };
   }, []);
   return (
     <Container>
