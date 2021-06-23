@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { IconBtn } from "../atoms/IconBtn/IconBtn";
+import { IconBtn } from "../atoms/IconBtn";
 import { HeadIconBtns } from "../molecules/HeadIconBtns";
 import { Logo } from "../atoms/Logo";
 import { useDispatch } from "react-redux";
@@ -23,7 +23,7 @@ export const Header = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const userInfo = useAppSelector(selectUserInfo);
-  
+
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.header}>
@@ -31,7 +31,7 @@ export const Header = () => {
           <IconBtn icon={"Menu"} onClk={() => dispatch(toggle(true))}></IconBtn>
           <Logo />
           {userInfo.username && <p>ようこそ{userInfo.username}さん</p>}
-          <HeadIconBtns />
+          <HeadIconBtns uid={userInfo.uid} />
         </Toolbar>
       </AppBar>
     </div>

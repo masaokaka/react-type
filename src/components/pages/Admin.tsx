@@ -17,7 +17,7 @@ import { AdminItems } from "../templates/AdminItems";
 import { AdminToppings } from "../templates/AdminToppings";
 import { AdminUserEdit } from "../templates/AdminUserEdit";
 import { Divider, Box } from "@material-ui/core";
-import { IconBtn } from "../atoms/IconBtn/IconBtn";
+import { IconBtn } from "../atoms/IconBtn";
 
 import { fetchToppings } from "../../app/store/topping/toppingsOperation";
 import { fetchItems } from "../../app/store/item/itemsOperation";

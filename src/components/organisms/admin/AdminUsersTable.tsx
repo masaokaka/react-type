@@ -6,7 +6,7 @@ import {
   TableCell,
 } from "@material-ui/core";
 import { ItemsTableHead } from "../../molecules/ItemsTableHead";
-import { IconBtn } from "../../atoms/IconBtn/IconBtn";
+import { IconBtn } from "../../atoms/IconBtn";
 import { useHistory } from "react-router";
 import { UserInfoType } from "../../../app/store/userinfo/userinfoSlice";
 

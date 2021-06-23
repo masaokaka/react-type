@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { Btn } from "../atoms/Btn/Btn";
+import { Btn } from "../atoms/Btn";
 
 export const OrderComp = () => {
   const history = useHistory();

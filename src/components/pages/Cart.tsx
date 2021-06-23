@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { selectCart } from "../../app/store/cart/cartSlice";
 import { selectItems } from "../../app/store/item/itemsSlice";
 import { selectUser } from "../../app/store/user/userSlice";
 import { selectUserInfo } from "../../app/store/userinfo/userinfoSlice";
-import { fetchCart } from "../../app/store/cart/cartOperation";
 import { Container, Box } from "@material-ui/core";
 import { CartItemsTable } from "../organisms/CartItemsTable";
 import { OrderForm } from "../organisms/OrderForm";
-import { Btn } from "../atoms/Btn/Btn";
-import { Price } from "../atoms/Price/Price";
+import { Btn } from "../atoms/Btn";
+import { Price } from "../atoms/Price";
 import { calcTotal } from "../../utils/functions";
 
 export const Cart = () => {
@@ -48,7 +46,7 @@ export const Cart = () => {
       {cart.itemInfo !== undefined ? (
         cart.itemInfo.length !== 0 ? (
           <>
-            <CartItemsTable cart={cart} show={show} />
+            <CartItemsTable items={items} cart={cart} show={show} />
             <Box mt={3} textAlign="center">
               <Price price={totalPrice} bigsize={true} tax={true} />
               {show ? (

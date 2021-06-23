@@ -79,7 +79,7 @@ export const validateOrderDate = (selected: string) => {
   }
 };
 
-//タイムスタンプをDateに変換
+//タイムスタンプをDateストリングに変換
 export const timestampToDate = (timestamp: number): String => {
   let dateTime = new Date(timestamp * 1000);
   let date = dateTime.toLocaleDateString(); // => 2019/9/4

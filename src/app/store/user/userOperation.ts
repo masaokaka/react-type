@@ -9,7 +9,6 @@ import { AppThunk } from "../../store";
 import { UserInfoType } from "../userinfo/userinfoSlice";
 import { registerUserInfo } from "../userinfo/userinfoOperation";
 import { USER_TABLE_PATH, USER_TABLE_ID } from "../../../state/admin";
-import { useHistory } from "react-router";
 
 // //ログイン
 export const login = (email: string, password: string) => {

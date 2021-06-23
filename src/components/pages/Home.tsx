@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Items } from "../../components/molecules/Items";
 import { useAppSelector } from "../../app/hooks";
 import { selectItems } from "../../app/store/item/itemsSlice";
-import { SearchForm } from "../molecules/SearchFrom";
+import { SearchForm } from "../molecules/SearchForm";
 import { ItemType } from "../../app/store/item/itemsSlice";
 
 export const Home = () => {

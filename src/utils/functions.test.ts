@@ -1,5 +1,3 @@
-import { render, screen } from "@testing-library/react";
-import { maxHeaderSize } from "http";
 import { SIZE_L_STATUS, SIZE_M_STATUS } from "../state/const";
 import {
   createRandomId,
@@ -37,23 +35,40 @@ test("計算処理の確認", () => {
   ];
   const itemId = 1; //商品
   const itemNum = 1; //個数
-  const itemSize = SIZE_M_STATUS; //Mサイズ入れた場合
   const toppings = [
     { id: 1, size: SIZE_M_STATUS },
     { id: 2, size: SIZE_L_STATUS },
   ];
-  const result = (items[0].mprice + 200 + 300) * itemNum;
-  expect(calcTotal(items, itemId, itemSize, itemNum, toppings)).toBe(result);
+  const resultM = (items[0].mprice + 200 + 300) * itemNum;
+  const resultL = (items[0].lprice + 200 + 300) * itemNum;
+  expect(calcTotal(items, itemId, SIZE_M_STATUS, itemNum, toppings)).toBe(
+    resultM
+  );
+  expect(calcTotal(items, itemId, SIZE_L_STATUS, itemNum, toppings)).toBe(
+    resultL
+  );
 });
 
-test("住所検索API", (done) => {
-  searchAddress("000-0000")
-    .then((res) => {
-      expect(res).toBe("東京都板橋区東坂下");
-      done();
-    })
-      .catch((res) => {
-      expect(res).toBe("取得に失敗しました。");
-      done();
-    });
+test("住所検索APIのデータ取得テスト1", () => {
+  return expect(searchAddress("174-0042")).resolves.toBe("東京都板橋区東坂下");
+});
+test("住所検索APIのデータ取得テスト2", () => {
+  return expect(searchAddress("000-0000")).resolves.toBe(
+    "取得に失敗しました。"
+  );
+});
+
+test("日付バリデーションのテスト1", () => {
+  expect(validateOrderDate("")).toBe(false);
+});
+//現在時刻の3時間後以降しか注文できない処理(日付を変更して試す)
+// test("日付バリデーションのテスト2", () => {
+//   expect(validateOrderDate("2021-06-23T14:00")).toBe(true);
+// });
+
+test("タイムスタンプを文字列に変換する1", () => {
+  expect(timestampToDate(1624409777)).toBe("2021/6/23 9:56:17");
+});
+test("タイムスタンプを文字列に変換する2", () => {
+  expect(timestampToDate("aaaa")).toBe("Invalid Date Invalid Date");
 });
