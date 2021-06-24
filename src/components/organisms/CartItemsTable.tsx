@@ -1,17 +1,16 @@
 import { Table, TableBody, TableContainer, Paper } from "@material-ui/core";
-import { useAppSelector } from "../../app/hooks";
 import { CartType } from "../../app/store/cart/cartSlice";
-import { selectItems } from "../../app/store/item/itemsSlice";
+import { ItemType } from "../../app/store/item/itemsSlice";
 import { ItemsTableHead } from "../molecules/ItemsTableHead";
 import { CartItemsTableRow } from "../molecules/CartItemsTableRow";
 import { ORDER_STATUS_CART } from "../../state/const";
 
 interface Props {
+  items: ItemType[];
   cart: CartType;
   show: boolean;
 }
-export const CartItemsTable = ({ cart, show }: Props) => {
-  const items = useAppSelector(selectItems);
+export const CartItemsTable = ({ items, cart, show }: Props) => {
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -32,6 +31,7 @@ export const CartItemsTable = ({ cart, show }: Props) => {
                 item.id === cartItem.itemId && (
                   <CartItemsTableRow
                     key={index}
+                    items={items}
                     cart={cart}
                     cartItem={cartItem}
                     show={show}

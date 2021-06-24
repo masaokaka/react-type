@@ -5,11 +5,11 @@ import { ItemType, selectItems } from "../../app/store/item/itemsSlice";
 import { useAppSelector } from "../../app/hooks";
 import { Container } from "@material-ui/core";
 import { ItemDetail } from "../molecules/ItemDetail";
-import { RadioInput } from "../atoms/RadioInput";
+import { RadioInput } from "../molecules/RadioInput";
 import { SelectToppingForm } from "../molecules/SelectToppingForm";
 import { Price } from "../atoms/Price";
 import { Btn } from "../atoms/Btn";
-import { SelectNumForm } from "../atoms/SelectNumForm";
+import { SelectNumForm } from "../molecules/SelectNumForm";
 import { createRandomId } from "../../utils/functions";
 import { calcTotal } from "../../utils/functions";
 import { selectUser } from "../../app/store/user/userSlice";
@@ -70,9 +70,9 @@ export const ItemInfo = () => {
     };
     if (user.uid) {
       if (Object.keys(cart).length !== 0) {
-        dispatch(updateCart(cartItem, user.uid, cart));
+        dispatch(updateCart([cartItem], user.uid, cart));
       } else {
-        dispatch(createCart(cartItem, user.uid));
+        dispatch(createCart([cartItem], user.uid));
       }
     } else {
       if (Object.keys(cart).length === 0) {

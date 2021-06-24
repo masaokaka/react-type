@@ -14,7 +14,7 @@ export const CardNumber = ({ control, error }: Props) => {
         control={control}
         defaultValue={""}
         rules={{ required: true, pattern: /\d[0-9]{13}/g }}
-        render={({ field }) => <TextField {...field} />}
+        render={({ field }) => <TextField label="カード番号" {...field} />}
       />
       {error !== undefined && (
         <p style={{ color: "red" }}>

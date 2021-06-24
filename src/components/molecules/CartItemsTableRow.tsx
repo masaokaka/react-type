@@ -6,23 +6,29 @@ import {
   setCart,
 } from "../../app/store/cart/cartSlice";
 import { deleteCartItem } from "../../app/store/cart/cartOperation";
-import { selectItems } from "../../app/store/item/itemsSlice";
+import { ItemType } from "../../app/store/item/itemsSlice";
 import { useDispatch } from "react-redux";
 import { Btn } from "../atoms/Btn";
 import { Price } from "../atoms/Price";
 import { selectUser } from "../../app/store/user/userSlice";
-import { ToppingsTableCell } from "../atoms/ToppingsTableCell";
+import { ToppingsTableCell } from "./ToppingsTableCell";
 import { ORDER_STATUS_CART } from "../../state/const";
 
 interface Props {
+  items: ItemType[];
   cart: CartType;
   cartItem: CartItemType;
   show: boolean;
   status: number;
 }
 
-export const CartItemsTableRow = ({ cart, cartItem, show, status }: Props) => {
-  const items = useAppSelector(selectItems);
+export const CartItemsTableRow = ({
+  items,
+  cart,
+  cartItem,
+  show,
+  status,
+}: Props) => {
   const dispatch = useDispatch();
   const user = useAppSelector(selectUser);
 
