@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Container, Box } from "@material-ui/core";
 import { login } from "../../app/store/user/userOperation";
@@ -12,6 +14,7 @@ interface LoginInfoType {
 }
 
 export const Login = () => {
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -23,8 +26,17 @@ export const Login = () => {
       password: "",
     },
   });
+
+  useEffect(() => {
+    return () => {
+      if (localStorage.ItemInfo) {
+        localStorage.removeItem("ItemInfo");
+      }
+    };
+  }, []);
+
   const doLogin: SubmitHandler<LoginInfoType> = (data) => {
-    login(data.email!, data.password!);
+    dispatch(login(data.email!, data.password!));
   };
   return (
     <Container maxWidth="sm">

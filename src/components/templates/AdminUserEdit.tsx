@@ -7,17 +7,15 @@ import { UserInfoType } from "../../app/store/userinfo/userinfoSlice";
 import { useAppSelector } from "../../app/hooks";
 import { selectUsersInfo } from "../../app/store/usersinfo/usersinfoSlice";
 import { OrderItemsTable } from "../organisms/OrderItemsTable";
-import {
-  OrderType,
-  selectOrders,
-  unsetOrders,
-} from "../../app/store/order/ordersSlice";
+import { selectOrders, unsetOrders } from "../../app/store/order/ordersSlice";
+import { selectItems } from "../../app/store/item/itemsSlice";
 import { fetchOrders } from "../../app/store/order/ordersOperation";
 
 export const AdminUserEdit = () => {
   const { userid }: { userid: string } = useParams();
   const [user, setUser] = useState<UserInfoType>();
   const orders = useAppSelector(selectOrders);
+  const items = useAppSelector(selectItems);
   const [toggle, setToggle] = useState(false);
   const usersInfo = useAppSelector(selectUsersInfo);
   const dispatch = useDispatch();
@@ -55,7 +53,7 @@ export const AdminUserEdit = () => {
           <Btn text="注文履歴の操作" onClk={() => setToggle(!toggle)} />
           {toggle &&
             (orders.length !== 0 ? (
-              <OrderItemsTable orders={orders} uid={userid} />
+              <OrderItemsTable items={items} orders={orders} uid={userid} />
             ) : (
               <h3>履歴がありません</h3>
             ))}

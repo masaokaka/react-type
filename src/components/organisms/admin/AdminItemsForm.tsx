@@ -1,5 +1,5 @@
 import { Container, Box } from "@material-ui/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ItemType } from "../../../app/store/item/itemsSlice";
@@ -19,6 +19,7 @@ interface Props {
 export const AdminItemsForm = ({ items }: Props) => {
   const [imgFile, setImgFile] = useState<File | undefined>();
   const dispatch = useDispatch();
+  const [itemsLength, setItemLength] = useState(items.length + 1);
   const {
     control,
     handleSubmit,
@@ -26,10 +27,11 @@ export const AdminItemsForm = ({ items }: Props) => {
     setValue,
     setError,
     clearErrors,
+    reset,
   } = useForm<ItemType>({
     mode: "onBlur",
     defaultValues: {
-      id: items.length + 1,
+      id: itemsLength,
       name: "",
       text: "",
       mprice: 0,
@@ -37,16 +39,30 @@ export const AdminItemsForm = ({ items }: Props) => {
       img: "",
     },
   });
+  useEffect(() => {
+    console.log(itemsLength);
+  }, [itemsLength]);
 
   const doAddItem: SubmitHandler<ItemType> = (data) => {
-    console.log(data);
-    console.log(imgFile);
+    data.mprice = Number(data.mprice);
+    data.lprice = Number(data.lprice);
+    console.log(data.img);
     dispatch(addItem(items, data, imgFile!));
+    reset({
+      id: itemsLength + 1,
+      name: "",
+      text: "",
+      mprice: 0,
+      lprice: 0,
+      img: "",
+    });
+    setImgFile(undefined);
+    setItemLength(itemsLength + 1);
   };
   return (
     <Container maxWidth="sm">
       <Box mt={3} textAlign="center">
-        <p>商品登録</p>
+        <h3>商品登録</h3>
         <form onSubmit={handleSubmit(doAddItem)}>
           <Id control={control} error={errors.id!} />
           <Name control={control} error={errors.name!} />

@@ -23,7 +23,7 @@ export const fetchItems = (): AppThunk => (dispatch) => {
 export const addItem =
   (items: ItemType[], item: ItemType, img: File): AppThunk =>
   (dispatch) => {
-    let storageRef = storage.ref().child(`img/${item.img}`);
+    let storageRef = storage.ref().child(`item/${item.img}`);
     storageRef.put(img).then(() => {
       storageRef.getDownloadURL().then((url) => {
         item.img = url;

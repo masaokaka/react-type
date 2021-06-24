@@ -19,6 +19,6 @@ export const SearchForm = ({ search }: Props) => {
         onChange={(e) => setWord(e.target.value)}
       />
       <IconBtn icon="Search" onClk={() => search(word!)} />
-    </Box>
+      </Box>
   );
 };

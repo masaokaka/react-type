@@ -5,6 +5,7 @@ import { timestampToDate } from "../../utils/functions";
 import { Price } from "../atoms/Price";
 import { ItemsTableHead } from "./ItemsTableHead";
 import { OrderType } from "../../app/store/order/ordersSlice";
+import { ItemType } from "../../app/store/item/itemsSlice";
 import {
   ORDER_STATUS_UNPAID,
   ORDER_STATUS_PAID,
@@ -16,11 +17,12 @@ import { CartItemsTableRow } from "./CartItemsTableRow";
 import { updateOrderStatus } from "../../app/store/order/ordersOperation";
 
 interface Props {
+  items: ItemType[];
   order: OrderType;
   orders: OrderType[];
   uid: string;
 }
-export const OrderItemsTableRow = ({ order, orders, uid }: Props) => {
+export const OrderItemsTableRow = ({ items, order, orders, uid }: Props) => {
   const dispatch = useDispatch();
 
   const cancelStatus = (orderId: string) => {
@@ -71,6 +73,7 @@ export const OrderItemsTableRow = ({ order, orders, uid }: Props) => {
               order.itemInfo.map((item, index) => (
                 <CartItemsTableRow
                   key={index}
+                  items={items}
                   cart={order}
                   cartItem={item}
                   show={true}

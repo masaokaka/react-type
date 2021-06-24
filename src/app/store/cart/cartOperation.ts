@@ -5,14 +5,14 @@ import { AppThunk } from "../../store";
 
 //カートの更新
 export const updateCart =
-  (cartItem: CartItemType, uid: string, cart: CartType): AppThunk =>
+  (cartItems: CartItemType[], uid: string, cart: CartType): AppThunk =>
   (dispatch): void => {
     db.collection(`users/${uid}/order`)
       .doc(cart.id)
-      .update({ itemInfo: fieldValue.arrayUnion(cartItem) })
+      .update({ itemInfo: fieldValue.arrayUnion(...cartItems) })
       .then(() => {
         let newCart: CartType = { ...cart };
-        newCart.itemInfo = [...cart.itemInfo!, cartItem];
+        newCart.itemInfo = [...cart.itemInfo!, ...cartItems];
         dispatch(setCart(newCart));
       })
       .catch((error) => {
@@ -22,11 +22,11 @@ export const updateCart =
 
 //カートの新規作成
 export const createCart =
-  (cartItem: CartItemType, uid: string): AppThunk =>
+  (cartItems: CartItemType[], uid: string): AppThunk =>
   (dispatch): void => {
     let cart: CartType = {
       userId: uid,
-      itemInfo: [cartItem],
+      itemInfo: [...cartItems],
       status: 0,
     };
     db.collection(`users/${uid}/order`)

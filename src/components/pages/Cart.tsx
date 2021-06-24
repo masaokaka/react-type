@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { selectCart } from "../../app/store/cart/cartSlice";
 import { selectItems } from "../../app/store/item/itemsSlice";
 import { selectUser } from "../../app/store/user/userSlice";
 import { selectUserInfo } from "../../app/store/userinfo/userinfoSlice";
-import { fetchCart } from "../../app/store/cart/cartOperation";
 import { Container, Box } from "@material-ui/core";
 import { CartItemsTable } from "../organisms/CartItemsTable";
 import { OrderForm } from "../organisms/OrderForm";
@@ -40,7 +38,12 @@ export const Cart = () => {
   }, [cart]);
 
   const showOrderForm = () => {
-    user.uid ? setShow(true) : history.push("/login");
+    if (user.uid) {
+      setShow(true);
+    } else {
+      localStorage.setItem("ItemInfo",JSON.stringify(cart.itemInfo))
+      history.push("/login");
+    }
   };
   return (
     <Container>
@@ -48,7 +51,7 @@ export const Cart = () => {
       {cart.itemInfo !== undefined ? (
         cart.itemInfo.length !== 0 ? (
           <>
-            <CartItemsTable cart={cart} show={show} />
+            <CartItemsTable items={items} cart={cart} show={show} />
             <Box mt={3} textAlign="center">
               <Price price={totalPrice} bigsize={true} tax={true} />
               {show ? (
